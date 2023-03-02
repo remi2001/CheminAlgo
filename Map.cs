@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CheminAlgo
+namespace Algo
 {
     internal class Map
     {
-        //test
     }
 }
