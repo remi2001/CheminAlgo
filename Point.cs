@@ -8,16 +8,21 @@ namespace Algo
 {
     internal class Point
     {
-        int x, y;
-        public Point(int CoodX,int CoodY)
+        private int x, y, valeur, utile;
+
+        private List<Point> PointsUtiles;
+        public Point(int CoodX, int CoodY)
         {
             x = CoodX;
             y = CoodY;
         }
-    }
 
-    public class PointStratégiquesOuIntérets : Point 
-    {
-
+        public Point(int x, int y, int valeur, int utile)
+        {
+            this.x = x;
+            this.y = y;
+            this.valeur = valeur;
+            this.utile = utile;
+        }
     }
 }
