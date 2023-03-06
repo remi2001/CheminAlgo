@@ -12,11 +12,16 @@ namespace Algo
         private int Distance;
         private Point Parent;
 
-        private List<Point> PointsUtiles;
+        public Point()
+        {
+            this.x = 0;
+            this.y = 0;
+        }
+
         public Point(int CoodX, int CoodY)
         {
-            x = CoodX;
-            y = CoodY;
+            this.x = CoodX;
+            this.y = CoodY;
         }
 
         public Point(int x, int y, int valeur, int utile)
@@ -27,9 +32,17 @@ namespace Algo
             this.utile = utile;
         }
 
+        public void affichePoint()
+        {
+            Console.WriteLine("x = "+this.x);
+            Console.WriteLine("y = "+this.y);
+        }
+
         public int SetDistance { get; set; }
-        public int GetX { get; set; }
-        public int GetY { get; set; }
+        public int GetSetX { get { return x; } set { this.x = value; } }
+        public int GetSetY { get { return y; } set { this.y = value; } }
         public Point SetParent { get; set; }
+
+
     }
 }

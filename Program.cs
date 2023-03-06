@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
+using System.Windows.Markup;
 
 namespace Algo
 {
@@ -11,16 +12,13 @@ namespace Algo
 
             Map map = new Map();
 
-            Point PointDeDepart = new Point(11, 9);
+            Point PointDeDepart = new Point(11,9);
 
             //Recupérer la map grace au getter
 
             List<Point> PointsImportants = new List<Point>();
 
             PointsImportants = RecuperationPointsImportants();
-
-            //De base 14 points
-            Console.WriteLine(PointsImportants.Count);
 
             Dijkstra(PointDeDepart, PointsImportants.First(), map);
         }
@@ -64,10 +62,8 @@ namespace Algo
 
             Depart.SetDistance = Distance;
             FileAttente.Add(Depart);
-
+            
             //Les valeurs x,y des points ne veulent pas se mettre
-            FileAttente.First().GetX = 1;
-            FileAttente.First().GetY = 9;
             Thread.Sleep(1000);
             while (FileAttente.Count() != 0)
             {
@@ -92,11 +88,11 @@ namespace Algo
                 FileAttente.Remove(PointActuel);
                 ListCasesTraite.Add(PointActuel);
 
-                if(PointActuel.GetX == 18 && PointActuel.GetY == 1)
+                if(PointActuel.GetSetX == 18 && PointActuel.GetSetY == 1)
                 {
                     Console.WriteLine("Arrivé !");
-                    Console.WriteLine(PointActuel.GetX + ";" + PointActuel.GetY);
-                    TabAvancé[PointActuel.GetX, PointActuel.GetY] = 'O';
+                    Console.WriteLine(PointActuel.GetSetX + ";" + PointActuel.GetSetY);
+                    TabAvancé[PointActuel.GetSetX, PointActuel.GetSetY] = 'O';
 
                     Console.Clear();
                     for (int ligne = 0; ligne < 20; ligne++)
@@ -118,14 +114,14 @@ namespace Algo
                     {
                         //Console.WriteLine("Un point aux coordonnée : " + Voisin.GetX + ";" + Voisin.GetY + " été trouvé !");
                         //Console.WriteLine("La distance du point de départ est de : " + Voisin.SetDistance);
-                        if(TabAvancé[Voisin.GetX, Voisin.GetY] != 'X')
+                        if(TabAvancé[Voisin.GetSetX, Voisin.GetSetY] != 'X')
                         {
-                            if (Voisin.SetDistance > PointActuel.SetDistance + map.ValeurPoint(Voisin.GetX, Voisin.GetY))
+                            if (Voisin.SetDistance > PointActuel.SetDistance + map.ValeurPoint(Voisin.GetSetX, Voisin.GetSetY))
                             {
-                                Voisin.SetDistance = PointActuel.SetDistance + map.ValeurPoint(Voisin.GetX, Voisin.GetY);
+                                Voisin.SetDistance = PointActuel.SetDistance + map.ValeurPoint(Voisin.GetSetX, Voisin.GetSetY);
                                 Voisin.SetParent = PointActuel;
                                 FileAttente.Add(Voisin);
-                                TabAvancé[Voisin.GetX, Voisin.GetY] = 'X';
+                                TabAvancé[Voisin.GetSetX, Voisin.GetSetY] = 'X';
                             }
                         }
                     }
@@ -150,8 +146,8 @@ namespace Algo
         public static List<Point> ParcoursVoisinCase(Point PointActuel, Map map)
         {
             List<Point> ListVoisin = new List<Point>();
-            int PositionX = PointActuel.GetX;
-            int PositionY = PointActuel.GetY;
+            int PositionX = PointActuel.GetSetX;
+            int PositionY = PointActuel.GetSetY;
 
             if (PositionY - 1 > 0)
             {
@@ -159,8 +155,8 @@ namespace Algo
                 if(VerificationConditionChemin(map, PositionX, PositionY - 1))
                 {
                     Point UnVoisin = new Point(0, 0);
-                    UnVoisin.GetX = PositionX;
-                    UnVoisin.GetY = PositionY - 1;
+                    UnVoisin.GetSetX = PositionX;
+                    UnVoisin.GetSetY = PositionY - 1;
                     UnVoisin.SetDistance = 99999;
                     ListVoisin.Add(UnVoisin);
                 }
@@ -173,8 +169,8 @@ namespace Algo
                 if(VerificationConditionChemin(map, PositionX, PositionY + 1))
                 {
                     Point UnVoisin = new Point(0, 0);
-                    UnVoisin.GetX = PositionX;
-                    UnVoisin.GetY = PositionY + 1;
+                    UnVoisin.GetSetX = PositionX;
+                    UnVoisin.GetSetY = PositionY + 1;
                     UnVoisin.SetDistance = 99999;
                     ListVoisin.Add(UnVoisin);
                 }
@@ -187,8 +183,8 @@ namespace Algo
                 if(VerificationConditionChemin(map, PositionX + 1, PositionY))
                 {
                     Point UnVoisin = new Point(0,0);
-                    UnVoisin.GetX = PositionX + 1;
-                    UnVoisin.GetY = PositionY;
+                    UnVoisin.GetSetX = PositionX + 1;
+                    UnVoisin.GetSetY = PositionY;
                     UnVoisin.SetDistance = 99999;
                     ListVoisin.Add(UnVoisin);
                 }
@@ -200,8 +196,8 @@ namespace Algo
                 if(VerificationConditionChemin(map, PositionX - 1, PositionY))
                 {
                     Point UnVoisin = new Point(0, 0);
-                    UnVoisin.GetX = PositionX - 1;
-                    UnVoisin.GetY = PositionY;
+                    UnVoisin.GetSetX = PositionX - 1;
+                    UnVoisin.GetSetY = PositionY;
                     UnVoisin.SetDistance = 99999;
                     ListVoisin.Add(UnVoisin);
                 }
