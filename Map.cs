@@ -28,6 +28,10 @@ namespace Algo
             }
         }
 
+        public int ValeurPoint(int x, int y)
+        {
+            return TabMap[x, y];
+        }
+
         public int[,] GetMap { get;}
-    }
-}
+    }}

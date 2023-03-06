@@ -13,3 +13,18 @@ C:\Users\ometz\OneDrive\Documents\LP RGI\Algo (Delpech)\Travail\CheminAlgo\obj\D
 C:\Users\ometz\OneDrive\Documents\LP RGI\Algo (Delpech)\Travail\CheminAlgo\obj\Debug\net6.0\CheminAlgo.pdb
 C:\Users\ometz\OneDrive\Documents\LP RGI\Algo (Delpech)\Travail\CheminAlgo\obj\Debug\net6.0\CheminAlgo.genruntimeconfig.cache
 C:\Users\ometz\OneDrive\Documents\LP RGI\Algo (Delpech)\Travail\CheminAlgo\obj\Debug\net6.0\ref\CheminAlgo.dll
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\bin\Debug\net6.0\CheminAlgo.exe
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\bin\Debug\net6.0\CheminAlgo.deps.json
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\bin\Debug\net6.0\CheminAlgo.runtimeconfig.json
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\bin\Debug\net6.0\CheminAlgo.dll
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\bin\Debug\net6.0\CheminAlgo.pdb
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\obj\Debug\net6.0\CheminAlgo.csproj.AssemblyReference.cache
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\obj\Debug\net6.0\CheminAlgo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\obj\Debug\net6.0\CheminAlgo.AssemblyInfoInputs.cache
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\obj\Debug\net6.0\CheminAlgo.AssemblyInfo.cs
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\obj\Debug\net6.0\CheminAlgo.csproj.CoreCompileInputs.cache
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\obj\Debug\net6.0\CheminAlgo.dll
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\obj\Debug\net6.0\refint\CheminAlgo.dll
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\obj\Debug\net6.0\CheminAlgo.pdb
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\obj\Debug\net6.0\CheminAlgo.genruntimeconfig.cache
+C:\Users\sebas\Documents\LP RGI\C#\Projet\BatailleNavale\CheminAlgo\obj\Debug\net6.0\ref\CheminAlgo.dll
