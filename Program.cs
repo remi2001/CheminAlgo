@@ -65,8 +65,14 @@ namespace Algo
             Depart.SetDistance = Distance;
             FileAttente.Add(Depart);
 
+            //Les valeurs x,y des points ne veulent pas se mettre
+            FileAttente.First().GetX = 11;
+            FileAttente.First().GetY = 9;
+            Thread.Sleep(1000);
             while (FileAttente.Count() != 0)
             {
+
+                //Reconstituer le chemin
                 Console.Clear();
                 for(int ligne = 0; ligne < 20; ligne++)
                 {
@@ -86,7 +92,7 @@ namespace Algo
                 FileAttente.Remove(PointActuel);
                 ListCasesTraite.Add(PointActuel);
 
-                if(PointActuel.GetX == 11 && PointActuel.GetY == 9)
+                if(PointActuel.GetX == 2 && PointActuel.GetY == 12)
                 {
                     Console.WriteLine("Arrivé !");
                     Console.WriteLine(PointActuel.GetX + ";" + PointActuel.GetY);
