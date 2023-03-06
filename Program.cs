@@ -60,21 +60,35 @@ namespace Algo
             Point PointActuel;
             int Distance = 0;
 
+            char[,] TabAvancé = new char[20, 20];
+
             Depart.SetDistance = Distance;
             FileAttente.Add(Depart);
 
             while (FileAttente.Count() != 0)
             {
+                Console.Clear();
+                for(int ligne = 0; ligne < 20; ligne++)
+                {
+                    for(int colonne = 0; colonne < 20; colonne++)
+                    {
+                        Console.Write("|"+TabAvancé[ligne,colonne]);
+                    }
+                    Console.WriteLine();
+                }
+
+                Thread.Sleep(10);
+
                 PointActuel = SelectionPoids(FileAttente);
 
-                Console.WriteLine("Le point en cours de traitement : " + PointActuel.GetX + ";" + PointActuel.GetY);
+                //Console.WriteLine("Le point en cours de traitement : " + PointActuel.GetX + ";" + PointActuel.GetY);
 
                 FileAttente.Remove(PointActuel);
                 ListCasesTraite.Add(PointActuel);
 
                 if(PointActuel == Arriver)
                 {
-                    Console.WriteLine("Arrivé !");
+                    //Console.WriteLine("Arrivé !");
                     Console.WriteLine(PointActuel.GetX + ";" + PointActuel.GetY);
                 }
                 else
@@ -83,13 +97,15 @@ namespace Algo
 
                     foreach (Point Voisin in ListVoisin)
                     {
-                        Console.WriteLine("Un point aux coordonnée : " + Voisin.GetX + ";" + Voisin.GetY + " été trouvé !");
-                        Console.WriteLine("La distance du point de départ est de : " + Voisin.SetDistance);
-                        if (map.ValeurPoint(Voisin.GetX, Voisin.GetY) > PointActuel.SetDistance + map.ValeurPoint(Voisin.GetX, Voisin.GetY))
+                        //Console.WriteLine("Un point aux coordonnée : " + Voisin.GetX + ";" + Voisin.GetY + " été trouvé !");
+                        //Console.WriteLine("La distance du point de départ est de : " + Voisin.SetDistance);
+
+                        if (Voisin.SetDistance > PointActuel.SetDistance + map.ValeurPoint(Voisin.GetX, Voisin.GetY))
                         {
-                            Console.WriteLine("Condition vérifie :)");
                             Voisin.SetDistance = PointActuel.SetDistance + map.ValeurPoint(Voisin.GetX, Voisin.GetY);
                             Voisin.SetParent = PointActuel;
+                            FileAttente.Add(Voisin);
+                            TabAvancé[Voisin.GetX, Voisin.GetY] = 'X';
                         }
                     }
                 }
@@ -124,7 +140,7 @@ namespace Algo
                     Point UnVoisin = new Point(0, 0);
                     UnVoisin.GetX = PositionX;
                     UnVoisin.GetY = PositionY - 1;
-                    UnVoisin.SetDistance = map.ValeurPoint(UnVoisin.GetX, UnVoisin.GetY);
+                    UnVoisin.SetDistance = 99999;
                     ListVoisin.Add(UnVoisin);
                 }
             }
@@ -138,7 +154,7 @@ namespace Algo
                     Point UnVoisin = new Point(0, 0);
                     UnVoisin.GetX = PositionX;
                     UnVoisin.GetY = PositionY + 1;
-                    UnVoisin.SetDistance = map.ValeurPoint(UnVoisin.GetX, UnVoisin.GetY);
+                    UnVoisin.SetDistance = 99999;
                     ListVoisin.Add(UnVoisin);
                 }
             }
@@ -152,7 +168,7 @@ namespace Algo
                     Point UnVoisin = new Point(0,0);
                     UnVoisin.GetX = PositionX + 1;
                     UnVoisin.GetY = PositionY;
-                    UnVoisin.SetDistance = map.ValeurPoint(UnVoisin.GetX, UnVoisin.GetY);
+                    UnVoisin.SetDistance = 99999;
                     ListVoisin.Add(UnVoisin);
                 }
             }
@@ -165,7 +181,7 @@ namespace Algo
                     Point UnVoisin = new Point(0, 0);
                     UnVoisin.GetX = PositionX - 1;
                     UnVoisin.GetY = PositionY;
-                    UnVoisin.SetDistance = map.ValeurPoint(UnVoisin.GetX, UnVoisin.GetY);
+                    UnVoisin.SetDistance = 99999;
                     ListVoisin.Add(UnVoisin);
                 }
             }
