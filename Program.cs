@@ -86,10 +86,23 @@ namespace Algo
                 FileAttente.Remove(PointActuel);
                 ListCasesTraite.Add(PointActuel);
 
-                if(PointActuel == Arriver)
+                if(PointActuel.GetX == 11 && PointActuel.GetY == 9)
                 {
-                    //Console.WriteLine("Arrivé !");
+                    Console.WriteLine("Arrivé !");
                     Console.WriteLine(PointActuel.GetX + ";" + PointActuel.GetY);
+                    TabAvancé[PointActuel.GetX, PointActuel.GetY] = 'O';
+
+                    Console.Clear();
+                    for (int ligne = 0; ligne < 20; ligne++)
+                    {
+                        for (int colonne = 0; colonne < 20; colonne++)
+                        {
+                            Console.Write("|" + TabAvancé[ligne, colonne]);
+                        }
+                        Console.WriteLine();
+                    }
+
+                    break;
                 }
                 else
                 {
@@ -99,13 +112,15 @@ namespace Algo
                     {
                         //Console.WriteLine("Un point aux coordonnée : " + Voisin.GetX + ";" + Voisin.GetY + " été trouvé !");
                         //Console.WriteLine("La distance du point de départ est de : " + Voisin.SetDistance);
-
-                        if (Voisin.SetDistance > PointActuel.SetDistance + map.ValeurPoint(Voisin.GetX, Voisin.GetY))
+                        if(TabAvancé[Voisin.GetX, Voisin.GetY] != 'X')
                         {
-                            Voisin.SetDistance = PointActuel.SetDistance + map.ValeurPoint(Voisin.GetX, Voisin.GetY);
-                            Voisin.SetParent = PointActuel;
-                            FileAttente.Add(Voisin);
-                            TabAvancé[Voisin.GetX, Voisin.GetY] = 'X';
+                            if (Voisin.SetDistance > PointActuel.SetDistance + map.ValeurPoint(Voisin.GetX, Voisin.GetY))
+                            {
+                                Voisin.SetDistance = PointActuel.SetDistance + map.ValeurPoint(Voisin.GetX, Voisin.GetY);
+                                Voisin.SetParent = PointActuel;
+                                FileAttente.Add(Voisin);
+                                TabAvancé[Voisin.GetX, Voisin.GetY] = 'X';
+                            }
                         }
                     }
                 }
@@ -146,7 +161,7 @@ namespace Algo
             }
 
             //if (PositionY + 1 <= map.GetMap.GetLength(1))
-            if (PositionY + 1 <= 20)
+            if (PositionY + 1 < 20)
             {
                 //Vérification du voisin NORD
                 if(VerificationConditionChemin(map, PositionX, PositionY + 1))
@@ -160,7 +175,7 @@ namespace Algo
             }
 
             //if (PositionX + 1 <= map.GetMap.GetLength(0))
-            if (PositionX + 1 <= 20)
+            if (PositionX + 1 < 20)
             {
                 //Vérification du voisin EST
                 if(VerificationConditionChemin(map, PositionX + 1, PositionY))
