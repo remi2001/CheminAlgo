@@ -66,7 +66,7 @@ namespace Algo
             FileAttente.Add(Depart);
 
             //Les valeurs x,y des points ne veulent pas se mettre
-            FileAttente.First().GetX = 11;
+            FileAttente.First().GetX = 1;
             FileAttente.First().GetY = 9;
             Thread.Sleep(1000);
             while (FileAttente.Count() != 0)
@@ -83,7 +83,7 @@ namespace Algo
                     Console.WriteLine();
                 }
 
-                Thread.Sleep(10);
+                Thread.Sleep(1);
 
                 PointActuel = SelectionPoids(FileAttente);
 
@@ -92,7 +92,7 @@ namespace Algo
                 FileAttente.Remove(PointActuel);
                 ListCasesTraite.Add(PointActuel);
 
-                if(PointActuel.GetX == 2 && PointActuel.GetY == 12)
+                if(PointActuel.GetX == 18 && PointActuel.GetY == 1)
                 {
                     Console.WriteLine("Arrivé !");
                     Console.WriteLine(PointActuel.GetX + ";" + PointActuel.GetY);
