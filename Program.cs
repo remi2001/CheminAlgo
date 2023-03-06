@@ -40,7 +40,7 @@ namespace Algo
                 {
                     TabPoint[ligne, colonne] = Convert.ToInt32(values[colonne]);
                 }
-                if (TabPoint[ligne, 2] != 30 && TabPoint[ligne, 3] != 0)
+                if (TabPoint[ligne, 2] != 30 || TabPoint[ligne, 3] != 0)
                     PointsImportants.Add(new Point(TabPoint[ligne,0], TabPoint[ligne,1], TabPoint[ligne, 2], TabPoint[ligne, 3]));
                 ligne++;
             }
