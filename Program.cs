@@ -14,7 +14,7 @@ namespace Algo
 
             Point PointDeDepart = new Point(11,9);
 
-            //Recupérer la map grace au getter
+            //map.AfficheMap();
 
             List<Point> PointsImportants = new List<Point>();
 
@@ -63,11 +63,9 @@ namespace Algo
             Depart.SetDistance = Distance;
             FileAttente.Add(Depart);
             
-            //Les valeurs x,y des points ne veulent pas se mettre
             Thread.Sleep(1000);
             while (FileAttente.Count() != 0)
             {
-
                 //Reconstituer le chemin
                 Console.Clear();
                 for(int ligne = 0; ligne < 20; ligne++)

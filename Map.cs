@@ -28,6 +28,22 @@ namespace Algo
             }
         }
 
+        public void AfficheMap()
+        {
+            for(int ligne=0; ligne < 20; ligne++)
+            {
+                Console.Write("|");
+                for (int colonne = 0; colonne < 20; colonne++)
+                {
+                    if(TabMap[ligne, colonne]==(-1))
+                        Console.Write(TabMap[ligne, colonne] + "|");
+                    else
+                        Console.Write(TabMap[ligne, colonne] + " |");
+                }
+                Console.WriteLine();
+            }
+        }
+
         public int ValeurPoint(int x, int y)
         {
             return TabMap[x, y];
