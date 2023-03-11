@@ -57,6 +57,7 @@ namespace Algo
             List<Point> ListVoisin = new List<Point>();
             Point PointActuel;
             int Distance = 0;
+            int DistanceTotal;
 
             char[,] TabAvancé = new char[20, 20];
 
@@ -82,7 +83,9 @@ namespace Algo
                     AffichageTabAvolution(TabAvancé);
 
                     Console.WriteLine(ReconstitutionChemin(PointActuel));
-                    Console.WriteLine("Cout pour aller au point :" + PointActuel.SetDistance);
+
+                    DistanceTotal = PointActuel.SetDistance + map.ValeurPoint(PointActuel.GetSetX, PointActuel.GetSetY);
+                    Console.WriteLine("Cout pour aller au point :" + DistanceTotal);
                     Thread.Sleep(10000);
                     break;
                 }
