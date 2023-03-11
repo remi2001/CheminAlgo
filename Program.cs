@@ -12,7 +12,7 @@ namespace Algo
 
             Map map = new Map();
 
-            Point PointDeDepart = new Point(11,9);
+            Point PointDeDepart = new Point(2,14);
 
             //map.AfficheMap();
 
@@ -63,45 +63,27 @@ namespace Algo
             Depart.SetDistance = Distance;
             FileAttente.Add(Depart);
             
-            Thread.Sleep(1000);
             while (FileAttente.Count() != 0)
             {
                 //Reconstituer le chemin
-                Console.Clear();
-                for(int ligne = 0; ligne < 20; ligne++)
-                {
-                    for(int colonne = 0; colonne < 20; colonne++)
-                    {
-                        Console.Write("|"+TabAvancé[ligne,colonne]);
-                    }
-                    Console.WriteLine();
-                }
-
-                Thread.Sleep(1);
+                AffichageTabAvolution(TabAvancé);
 
                 PointActuel = SelectionPoids(FileAttente);
-
-                //Console.WriteLine("Le point en cours de traitement : " + PointActuel.GetX + ";" + PointActuel.GetY);
 
                 FileAttente.Remove(PointActuel);
                 ListCasesTraite.Add(PointActuel);
 
-                if(PointActuel.GetSetX == 18 && PointActuel.GetSetY == 1)
+                if(PointActuel.GetSetX == Arriver.GetSetX && PointActuel.GetSetY == Arriver.GetSetY)
                 {
                     Console.WriteLine("Arrivé !");
                     Console.WriteLine(PointActuel.GetSetX + ";" + PointActuel.GetSetY);
                     TabAvancé[PointActuel.GetSetX, PointActuel.GetSetY] = 'O';
 
-                    Console.Clear();
-                    for (int ligne = 0; ligne < 20; ligne++)
-                    {
-                        for (int colonne = 0; colonne < 20; colonne++)
-                        {
-                            Console.Write("|" + TabAvancé[ligne, colonne]);
-                        }
-                        Console.WriteLine();
-                    }
+                    AffichageTabAvolution(TabAvancé);
 
+                    Console.WriteLine(ReconstitutionChemin(PointActuel));
+                    Console.WriteLine("Cout pour aller au point :" + PointActuel.SetDistance);
+                    Thread.Sleep(10000);
                     break;
                 }
                 else
@@ -110,19 +92,20 @@ namespace Algo
 
                     foreach (Point Voisin in ListVoisin)
                     {
-                        //Console.WriteLine("Un point aux coordonnée : " + Voisin.GetX + ";" + Voisin.GetY + " été trouvé !");
-                        //Console.WriteLine("La distance du point de départ est de : " + Voisin.SetDistance);
-                        if(TabAvancé[Voisin.GetSetX, Voisin.GetSetY] != 'X')
+                        if (Voisin.SetDistance > PointActuel.SetDistance + map.ValeurPoint(Voisin.GetSetX, Voisin.GetSetY))
                         {
-                            if (Voisin.SetDistance > PointActuel.SetDistance + map.ValeurPoint(Voisin.GetSetX, Voisin.GetSetY))
+                            Voisin.SetDistance = PointActuel.SetDistance + map.ValeurPoint(Voisin.GetSetX, Voisin.GetSetY);
+                            Voisin.SetParent = PointActuel;
+
+                            //Si le voisin n'est pas déjà dans la file d'attente
+                            if (!FileAttente.Any(p => p.GetSetX == Voisin.GetSetX && p.GetSetY == Voisin.GetSetY))
                             {
-                                Voisin.SetDistance = PointActuel.SetDistance + map.ValeurPoint(Voisin.GetSetX, Voisin.GetSetY);
-                                Voisin.SetParent = PointActuel;
                                 FileAttente.Add(Voisin);
                                 TabAvancé[Voisin.GetSetX, Voisin.GetSetY] = 'X';
                             }
                         }
                     }
+                    ListVoisin.Clear();
                 }
             }
         }
@@ -147,14 +130,12 @@ namespace Algo
             int PositionX = PointActuel.GetSetX;
             int PositionY = PointActuel.GetSetY;
 
-            if (PositionY - 1 > 0)
+            if (PositionY - 1 >= 0)
             {
                 //Vérification du voisin SUD
                 if(VerificationConditionChemin(map, PositionX, PositionY - 1))
                 {
-                    Point UnVoisin = new Point(0, 0);
-                    UnVoisin.GetSetX = PositionX;
-                    UnVoisin.GetSetY = PositionY - 1;
+                    Point UnVoisin = new Point(PositionX, PositionY - 1);
                     UnVoisin.SetDistance = 99999;
                     ListVoisin.Add(UnVoisin);
                 }
@@ -166,9 +147,7 @@ namespace Algo
                 //Vérification du voisin NORD
                 if(VerificationConditionChemin(map, PositionX, PositionY + 1))
                 {
-                    Point UnVoisin = new Point(0, 0);
-                    UnVoisin.GetSetX = PositionX;
-                    UnVoisin.GetSetY = PositionY + 1;
+                    Point UnVoisin = new Point(PositionX, PositionY + 1);
                     UnVoisin.SetDistance = 99999;
                     ListVoisin.Add(UnVoisin);
                 }
@@ -180,22 +159,18 @@ namespace Algo
                 //Vérification du voisin EST
                 if(VerificationConditionChemin(map, PositionX + 1, PositionY))
                 {
-                    Point UnVoisin = new Point(0,0);
-                    UnVoisin.GetSetX = PositionX + 1;
-                    UnVoisin.GetSetY = PositionY;
+                    Point UnVoisin = new Point(PositionX + 1,PositionY);
                     UnVoisin.SetDistance = 99999;
                     ListVoisin.Add(UnVoisin);
                 }
             }
 
-            if (PositionX - 1 > 0)
+            if (PositionX - 1 >= 0)
             {
                 //Vérification du voisin OUEST
                 if(VerificationConditionChemin(map, PositionX - 1, PositionY))
                 {
-                    Point UnVoisin = new Point(0, 0);
-                    UnVoisin.GetSetX = PositionX - 1;
-                    UnVoisin.GetSetY = PositionY;
+                    Point UnVoisin = new Point(PositionX - 1, PositionY);
                     UnVoisin.SetDistance = 99999;
                     ListVoisin.Add(UnVoisin);
                 }
@@ -214,6 +189,33 @@ namespace Algo
             }
             
             return SiPointAccessible;
+        }
+
+        public static void AffichageTabAvolution(char[,] TabAvancé)
+        {
+            Console.Clear();
+            for(int ligne = 0; ligne < 20; ligne++)
+                {
+                    for(int colonne = 0; colonne < 20; colonne++)
+                    {
+                        Console.Write("|"+TabAvancé[ligne,colonne]);
+                    }
+                    Console.WriteLine();
+                }
+
+                Thread.Sleep(1);
+        }
+
+        public static string ReconstitutionChemin(Point Point)
+        {
+            string Chemin = "";
+            while (Point.SetParent != null)
+            {
+                Chemin = "(" + Point.GetSetX + ";" + Point.GetSetY + ")" + Chemin;
+                Point = Point.SetParent;
+            }
+            Chemin = "(" + Point.GetSetX + ";" + Point.GetSetY + ")" + Chemin;
+            return Chemin;     
         }
     }
 }
