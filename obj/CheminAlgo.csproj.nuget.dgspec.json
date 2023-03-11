@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ometz\\OneDrive\\Documents\\LP RGI\\Algo (Delpech)\\Travail\\CheminAlgo\\CheminAlgo.csproj": {}
+    "C:\\Users\\sebas\\Documents\\LP RGI\\C#\\Projet\\BatailleNavale\\CheminAlgo\\CheminAlgo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ometz\\OneDrive\\Documents\\LP RGI\\Algo (Delpech)\\Travail\\CheminAlgo\\CheminAlgo.csproj": {
+    "C:\\Users\\sebas\\Documents\\LP RGI\\C#\\Projet\\BatailleNavale\\CheminAlgo\\CheminAlgo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ometz\\OneDrive\\Documents\\LP RGI\\Algo (Delpech)\\Travail\\CheminAlgo\\CheminAlgo.csproj",
+        "projectUniqueName": "C:\\Users\\sebas\\Documents\\LP RGI\\C#\\Projet\\BatailleNavale\\CheminAlgo\\CheminAlgo.csproj",
         "projectName": "CheminAlgo",
-        "projectPath": "C:\\Users\\ometz\\OneDrive\\Documents\\LP RGI\\Algo (Delpech)\\Travail\\CheminAlgo\\CheminAlgo.csproj",
-        "packagesPath": "C:\\Users\\ometz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ometz\\OneDrive\\Documents\\LP RGI\\Algo (Delpech)\\Travail\\CheminAlgo\\obj\\",
+        "projectPath": "C:\\Users\\sebas\\Documents\\LP RGI\\C#\\Projet\\BatailleNavale\\CheminAlgo\\CheminAlgo.csproj",
+        "packagesPath": "C:\\Users\\sebas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sebas\\Documents\\LP RGI\\C#\\Projet\\BatailleNavale\\CheminAlgo\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ometz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sebas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -55,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
