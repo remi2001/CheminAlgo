@@ -1,6 +1,7 @@
 ﻿using CheminAlgo;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows.Markup;
 
@@ -21,7 +22,18 @@ namespace Algo
 
             PointsImportants = RecuperationPointsImportants();
 
-            DijkstraAlgo(PointDeDepart, PointsImportants.First(), map);
+            Trajet[,] TabTrajet = new Trajet[PointsImportants.Count,PointsImportants.Count] ;
+
+            for(int lignes=0;lignes<PointsImportants.Count;lignes++)
+            {
+                for(int j=0;j<PointsImportants.Count;j++)
+                {
+                    if (PointsImportants[1] != PointsImportants[j])
+                    DijkstraAlgo(PointsImportants[lignes], PointsImportants[j], map, TabTrajet[lignes, j]);
+                }
+            }
+
+            //DijkstraAlgo(PointDeDepart, PointsImportants[0], map, TabTrajet[0,0]);
         }
 
         public static List<Point> RecuperationPointsImportants()

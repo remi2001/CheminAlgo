@@ -10,7 +10,7 @@ namespace CheminAlgo
     internal abstract class Dijkstra
     {
 
-        public static void DijkstraAlgo(Point Depart, Point Arriver, Map map)
+        public static void DijkstraAlgo(Point Depart, Point Arriver, Map map, Trajet Trajet)
         {
             List<Point> FileAttente = new List<Point>();
             List<Point> ListVoisin = new List<Point>();
@@ -25,7 +25,7 @@ namespace CheminAlgo
 
             while (FileAttente.Count() != 0 && Arrive == false)
             {
-                AffichageTabAvolution(TabAvancé);
+                //AffichageTabAvolution(TabAvancé);
 
                 PointActuel = SelectionPoids(FileAttente);
 
@@ -35,12 +35,12 @@ namespace CheminAlgo
                 {
                     TabAvancé[PointActuel.GetSetX, PointActuel.GetSetY] = 'O';
 
-                    AffichageTabAvolution(TabAvancé);
+                    //AffichageTabAvolution(TabAvancé);
 
                     Console.WriteLine("Arrivé !");
                     Console.WriteLine(PointActuel.GetSetX + ";" + PointActuel.GetSetY);
 
-                    Console.WriteLine(ReconstitutionChemin(PointActuel));
+                    Console.WriteLine(ReconstitutionChemin(PointActuel, Trajet));
 
                     DistanceTotal = PointActuel.SetDistance + map.ValeurPoint(PointActuel.GetSetX, PointActuel.GetSetY);
                     Console.WriteLine("Cout pour aller au point :" + DistanceTotal);
@@ -166,12 +166,13 @@ namespace CheminAlgo
             Thread.Sleep(1);
         }
 
-        private static string ReconstitutionChemin(Point Point)
+        private static string ReconstitutionChemin(Point Point, Trajet Trajet)
         {
             string Chemin = "";
             while (Point.SetParent != null)
             {
                 Chemin = "(" + Point.GetSetX + ";" + Point.GetSetY + ")" + Chemin;
+                Trajet.ListPointPracourure.Add(Point);
                 Point = Point.SetParent;
             }
             Chemin = "(" + Point.GetSetX + ";" + Point.GetSetY + ")" + Chemin;
