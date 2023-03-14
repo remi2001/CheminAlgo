@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Windows.Markup;
 
 namespace Algo
@@ -26,10 +27,14 @@ namespace Algo
 
             for(int lignes=0;lignes<PointsImportants.Count;lignes++)
             {
-                for(int j=0;j<PointsImportants.Count;j++)
+                for(int colonnes=0;colonnes<PointsImportants.Count;colonnes++)
                 {
-                    if (PointsImportants[1] != PointsImportants[j])
-                    DijkstraAlgo(PointsImportants[lignes], PointsImportants[j], map, TabTrajet[lignes, j]);
+                    //if (PointsImportants[1] != PointsImportants[j])
+                    Trajet CalculTrajet = new Trajet();
+                    DijkstraAlgo(PointsImportants[lignes], PointsImportants[colonnes], map, ref CalculTrajet);
+                    TabTrajet[lignes, colonnes] = CalculTrajet;
+                    CalculTrajet = null;
+                    TabTrajet[lignes, colonnes].AfficheTrajet();
                 }
             }
 

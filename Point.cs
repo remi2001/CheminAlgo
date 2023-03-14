@@ -9,8 +9,8 @@ namespace Algo
     internal class Point
     {
         private int x, y, valeur, utile;
-        private int Distance;
-        private Point Parent;
+        //private int Distance;
+        //private Point? Parent;
 
         public Point()
         {
@@ -41,7 +41,7 @@ namespace Algo
         public int SetDistance { get; set; }
         public int GetSetX { get { return x; } set { this.x = value; } }
         public int GetSetY { get { return y; } set { this.y = value; } }
-        public Point SetParent { get; set; }
+        public Point? SetParent { get; set; }
 
 
     }

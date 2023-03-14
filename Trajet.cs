@@ -10,13 +10,23 @@ namespace CheminAlgo
 {
     internal class Trajet
     {
+        public Point PointDep, PointArr;
         public List<Point> ListPointPracourure;
-        private int CoutTrajet;
+        public int CoutTrajet;
 
-        public Trajet(List<Point> listPointPracourure, int coutTrajet)
+        public Trajet()
         {
-            ListPointPracourure = listPointPracourure;
-            CoutTrajet = coutTrajet;
+            PointDep = null;
+            PointArr = null;
+            ListPointPracourure = null;
+            CoutTrajet = 0;
+        }
+
+        public void AfficheTrajet()
+        {
+            Console.WriteLine("Point Départ : " + this.PointDep.ToString());
+            Console.WriteLine("Point Arrivée : " + this.PointArr.ToString());
+            Console.WriteLine("Cout : " + this.CoutTrajet);
         }
     }
 }
