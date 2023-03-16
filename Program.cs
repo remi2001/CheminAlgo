@@ -17,28 +17,13 @@ namespace Algo
 
             Point PointDeDepart = new Point(2, 14);
 
-            //map.AfficheMap();
+            map.AfficheMap();
 
             List<Point> PointsImportants = new List<Point>();
 
             PointsImportants = RecuperationPointsImportants();
 
-            Trajet[,] TabTrajet = new Trajet[PointsImportants.Count,PointsImportants.Count] ;
-
-            for(int lignes=0;lignes<PointsImportants.Count;lignes++)
-            {
-                for(int colonnes=0;colonnes<PointsImportants.Count;colonnes++)
-                {
-                    //if (PointsImportants[1] != PointsImportants[j])
-                    Trajet CalculTrajet = new Trajet();
-                    DijkstraAlgo(PointsImportants[lignes], PointsImportants[colonnes], map, ref CalculTrajet);
-                    TabTrajet[lignes, colonnes] = CalculTrajet;
-                    CalculTrajet = null;
-                    TabTrajet[lignes, colonnes].AfficheTrajet();
-                }
-            }
-
-            //DijkstraAlgo(PointDeDepart, PointsImportants[0], map, TabTrajet[0,0]);
+            DijkstraAlgo(PointDeDepart, PointsImportants[0], map);
         }
 
         public static List<Point> RecuperationPointsImportants()

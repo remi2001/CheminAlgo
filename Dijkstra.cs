@@ -10,12 +10,8 @@ namespace CheminAlgo
     internal abstract class Dijkstra
     {
 
-        public static void DijkstraAlgo(Point Depart, Point Arriver, Map map,ref Trajet Trajet)
+        public static void DijkstraAlgo(Point Depart, Point Arriver, Map map)
         {
-            Trajet.PointDep = Depart;
-            Trajet.PointArr = Arriver;
-
-
             List<Point> FileAttente = new List<Point>();
             List<Point> ListVoisin = new List<Point>();
             Point PointActuel;
@@ -29,7 +25,7 @@ namespace CheminAlgo
 
             while (FileAttente.Count() != 0 && Arrive == false)
             {
-                //AffichageTabAvolution(TabAvancé);
+                AffichageTabAvolution(TabAvancé);
 
                 PointActuel = SelectionPoids(FileAttente);
 
@@ -39,16 +35,15 @@ namespace CheminAlgo
                 {
                     TabAvancé[PointActuel.GetSetX, PointActuel.GetSetY] = 'O';
 
-                    //AffichageTabAvolution(TabAvancé);
+                    AffichageTabAvolution(TabAvancé);
 
-                    //Console.WriteLine("Arrivé !");
-                    //Console.WriteLine(PointActuel.GetSetX + ";" + PointActuel.GetSetY);
+                    Console.WriteLine("Arrivé !");
+                    Console.WriteLine(PointActuel.GetSetX + ";" + PointActuel.GetSetY);
 
-                    Console.WriteLine(ReconstitutionChemin(PointActuel, ref Trajet));
+                    Console.WriteLine(ReconstitutionChemin(PointActuel));
 
                     DistanceTotal = PointActuel.SetDistance + map.ValeurPoint(PointActuel.GetSetX, PointActuel.GetSetY);
-                    //Console.WriteLine("Cout pour aller au point :" + DistanceTotal);
-                    Trajet.CoutTrajet = DistanceTotal;
+                    Console.WriteLine("Cout pour aller au point :" + DistanceTotal);
                     Arrive = true;
                 }
                 else
@@ -171,14 +166,13 @@ namespace CheminAlgo
             Thread.Sleep(1);
         }
 
-        private static string ReconstitutionChemin(Point Point,ref Trajet Trajet)
+        private static string ReconstitutionChemin(Point Point)
         {
             string Chemin = "";
             while (Point.SetParent != null)
             {
                 Chemin = "(" + Point.GetSetX + ";" + Point.GetSetY + ")" + Chemin;
                 Point = Point.SetParent;
-                //Trajet.ListPointPracourure.Add(Point);
             }
             Chemin = "(" + Point.GetSetX + ";" + Point.GetSetY + ")" + Chemin;
             return Chemin;
