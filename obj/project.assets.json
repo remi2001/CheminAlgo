@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ometz\\OneDrive\\Documents\\LP RGI\\Algo (Delpech)\\Travail\\CheminAlgo\\CheminAlgo.csproj",
+      "projectUniqueName": "C:\\Users\\ometz\\OneDrive\\Documents\\LP RGI\\Algo (Delpech)\\Travail\\CheminAlgo - Copie\\CheminAlgo.csproj",
       "projectName": "CheminAlgo",
-      "projectPath": "C:\\Users\\ometz\\OneDrive\\Documents\\LP RGI\\Algo (Delpech)\\Travail\\CheminAlgo\\CheminAlgo.csproj",
+      "projectPath": "C:\\Users\\ometz\\OneDrive\\Documents\\LP RGI\\Algo (Delpech)\\Travail\\CheminAlgo - Copie\\CheminAlgo.csproj",
       "packagesPath": "C:\\Users\\ometz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ometz\\OneDrive\\Documents\\LP RGI\\Algo (Delpech)\\Travail\\CheminAlgo\\obj\\",
+      "outputPath": "C:\\Users\\ometz\\OneDrive\\Documents\\LP RGI\\Algo (Delpech)\\Travail\\CheminAlgo - Copie\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ometz\\AppData\\Roaming\\NuGet\\NuGet.Config",
