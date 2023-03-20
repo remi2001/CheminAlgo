@@ -43,3 +43,18 @@ C:\Users\ometz\OneDrive\Documents\LP RGI\Algo (Delpech)\Travail\CheminAlgo - Cop
 C:\Users\ometz\OneDrive\Documents\LP RGI\Algo (Delpech)\Travail\CheminAlgo - Copie\bin\Debug\net6.0\CheminAlgo.pdb
 C:\Users\ometz\OneDrive\Documents\LP RGI\Algo (Delpech)\Travail\CheminAlgo - Copie\obj\Debug\net6.0\CheminAlgo.genruntimeconfig.cache
 C:\Users\ometz\OneDrive\Documents\LP RGI\Algo (Delpech)\Travail\CheminAlgo - Copie\obj\Debug\net6.0\ref\CheminAlgo.dll
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\bin\Debug\net6.0\CheminAlgo.exe
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\bin\Debug\net6.0\CheminAlgo.deps.json
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\bin\Debug\net6.0\CheminAlgo.runtimeconfig.json
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\bin\Debug\net6.0\CheminAlgo.dll
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\bin\Debug\net6.0\CheminAlgo.pdb
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\obj\Debug\net6.0\CheminAlgo.csproj.AssemblyReference.cache
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\obj\Debug\net6.0\CheminAlgo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\obj\Debug\net6.0\CheminAlgo.AssemblyInfoInputs.cache
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\obj\Debug\net6.0\CheminAlgo.AssemblyInfo.cs
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\obj\Debug\net6.0\CheminAlgo.csproj.CoreCompileInputs.cache
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\obj\Debug\net6.0\CheminAlgo.dll
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\obj\Debug\net6.0\refint\CheminAlgo.dll
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\obj\Debug\net6.0\CheminAlgo.pdb
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\obj\Debug\net6.0\CheminAlgo.genruntimeconfig.cache
+C:\Users\Zitouni.DOMAMP\Documents\Projet cours\CheminAlgo\obj\Debug\net6.0\ref\CheminAlgo.dll

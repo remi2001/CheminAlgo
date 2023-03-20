@@ -23,8 +23,9 @@ namespace Algo
 
             PointsImportants = RecuperationPointsImportants();
 
-            Trajet[,] TabTrajet = new Trajet[PointsImportants.Count,PointsImportants.Count] ;
-
+            Trajet[,] TabTrajet = new Trajet[PointsImportants.Count,PointsImportants.Count];
+            
+            //Calcul des trajets entre tous les points importants
             for(int lignes=0;lignes<PointsImportants.Count;lignes++)
             {
                 for(int colonnes=0;colonnes<PointsImportants.Count;colonnes++)
@@ -35,7 +36,7 @@ namespace Algo
                         DijkstraAlgo(PointsImportants[lignes], PointsImportants[colonnes], map, ref CalculTrajet);
                         TabTrajet[lignes, colonnes] = CalculTrajet;
                         CalculTrajet = null;
-                        TabTrajet[lignes, colonnes].AfficheTrajet();
+                        //TabTrajet[lignes, colonnes].AfficheTrajet();
                     }
                     else
                     {
@@ -44,7 +45,16 @@ namespace Algo
                 }
             }
 
-            //DijkstraAlgo(PointDeDepart, PointsImportants[0], map, TabTrajet[0,0]);
+            //Cacul des trajets entre point de départ et autre points
+            Trajet[] TabTrajetEntreDepartPoint = new Trajet[PointsImportants.Count];
+            for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
+            {
+                Trajet CalculTrajet = new Trajet();
+                DijkstraAlgo(PointDeDepart, PointsImportants[lignes], map, ref CalculTrajet);
+                TabTrajetEntreDepartPoint[lignes] = CalculTrajet;
+                CalculTrajet = null;
+                TabTrajetEntreDepartPoint[lignes].AfficheTrajet();
+            }
         }
 
         public static List<Point> RecuperationPointsImportants()

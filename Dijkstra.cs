@@ -177,8 +177,8 @@ namespace CheminAlgo
             while (Point.SetParent != null)
             {
                 Chemin = "(" + Point.GetSetX + ";" + Point.GetSetY + ")" + Chemin;
-                //Trajet.ListPointPracourure.Add(Point p = new Point(Point.GetSetX, Point.GetSetY;);
                 Point = Point.SetParent;
+                Trajet.ListPointPracourure.Add(Point);
             }
             Chemin = "(" + Point.GetSetX + ";" + Point.GetSetY + ")" + Chemin;
             return Chemin;

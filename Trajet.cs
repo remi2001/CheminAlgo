@@ -18,19 +18,22 @@ namespace CheminAlgo
         {
             PointDep = null;
             PointArr = null;
-            ListPointPracourure = null;
+            ListPointPracourure = new List<Point>();
             CoutTrajet = 0;
         }
 
         public void AfficheTrajet()
         {
+            Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("Point Départ : (" + this.PointDep.GetSetX + " , " + this.PointDep.GetSetY + " ) ");
             Console.WriteLine("Point Arrivée : (" + this.PointArr.GetSetX + " , " + this.PointArr.GetSetY + " ) ");
             Console.WriteLine("Cout : " + this.CoutTrajet);
+            
             foreach (Point p in this.ListPointPracourure)
             {
                 Console.Write("( " + p.GetSetX + " , " + p.GetSetY + " ) - ");
             }
+            Console.WriteLine("");
         }
     }
 }
