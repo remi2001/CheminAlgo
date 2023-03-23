@@ -12,6 +12,8 @@ namespace Algo
     {
         public static void Main(string[] args)
         {
+            int Cout =999999;
+            Trajet TrajetChoisi = null;
 
             Map map = new Map();
 
@@ -53,8 +55,37 @@ namespace Algo
                 DijkstraAlgo(PointDeDepart, PointsImportants[lignes], map, ref CalculTrajet);
                 TabTrajetEntreDepartPoint[lignes] = CalculTrajet;
                 CalculTrajet = null;
-                TabTrajetEntreDepartPoint[lignes].AfficheTrajet();
+                //TabTrajetEntreDepartPoint[lignes].AfficheTrajet();
             }
+
+            for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
+            {
+                if (TabTrajetEntreDepartPoint[lignes].CoutTrajet<Cout)
+                {
+                    TrajetChoisi = TabTrajetEntreDepartPoint[lignes];
+                    Cout = TabTrajetEntreDepartPoint[lignes].CoutTrajet;
+                }
+            }
+            TrajetChoisi.AfficheTrajet();
+
+
+            Cout = 999999;
+
+            for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
+            {
+                for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
+                {
+                    if (TabTrajet[lignes, colonnes] != null && TabTrajet[lignes, colonnes].PointDep.GetSetX == TrajetChoisi.PointArr.GetSetX && TabTrajet[lignes, colonnes].PointDep.GetSetY == TrajetChoisi.PointArr.GetSetY)
+                    {
+                        if (TabTrajet[lignes, colonnes].CoutTrajet < Cout)
+                        {
+                            TrajetChoisi = TabTrajet[lignes, colonnes];
+                            Cout = TabTrajet[lignes, colonnes].CoutTrajet;
+                        }
+                    }
+                }
+            }
+            TrajetChoisi.AfficheTrajet();
         }
 
         public static List<Point> RecuperationPointsImportants()
