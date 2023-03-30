@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Windows.Markup;
 
@@ -12,8 +13,9 @@ namespace Algo
     {
         public static void Main(string[] args)
         {
-            int Cout =999999;
-            Trajet TrajetChoisi = null;
+            int? Cout = null;
+            Trajet? TrajetChoisi = null;
+            Trajet? TrajetEmprunter = null;
 
             Map map = new Map();
 
@@ -34,7 +36,7 @@ namespace Algo
                 {
                     if (PointsImportants[lignes] != PointsImportants[colonnes])
                     {
-                        Trajet CalculTrajet = new Trajet();
+                        Trajet? CalculTrajet = new Trajet();
                         DijkstraAlgo(PointsImportants[lignes], PointsImportants[colonnes], map, ref CalculTrajet);
                         TabTrajet[lignes, colonnes] = CalculTrajet;
                         CalculTrajet = null;
@@ -60,32 +62,57 @@ namespace Algo
 
             for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
             {
-                if (TabTrajetEntreDepartPoint[lignes].CoutTrajet<Cout)
+                if (TabTrajetEntreDepartPoint[lignes].CoutTrajet<Cout || Cout==null)
                 {
                     TrajetChoisi = TabTrajetEntreDepartPoint[lignes];
                     Cout = TabTrajetEntreDepartPoint[lignes].CoutTrajet;
                 }
             }
-            TrajetChoisi.AfficheTrajet();
-
-
-            Cout = 999999;
-
-            for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
+            if (TrajetChoisi != null)
             {
-                for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
+                TrajetChoisi.AfficheTrajet();
+                TrajetEmprunter = TrajetChoisi;
+            }
+
+            bool Continuer = true;
+            int nbRepet = 0;
+
+            while (Continuer==true)
+            {
+                Cout = null;
+
+                //int lignesTrajetChoisi=0;
+                for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
                 {
-                    if (TabTrajet[lignes, colonnes] != null && TabTrajet[lignes, colonnes].PointDep.GetSetX == TrajetChoisi.PointArr.GetSetX && TabTrajet[lignes, colonnes].PointDep.GetSetY == TrajetChoisi.PointArr.GetSetY)
+                    for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
                     {
-                        if (TabTrajet[lignes, colonnes].CoutTrajet < Cout)
+                        if (TabTrajet[lignes, colonnes] != null && TabTrajet[lignes, colonnes].PointDep.GetSetX == TrajetEmprunter.PointArr.GetSetX && TabTrajet[lignes, colonnes].PointDep.GetSetY == TrajetEmprunter.PointArr.GetSetY
+                            && TabTrajet[lignes, colonnes].PointArr.GetSetX != TrajetEmprunter.PointDep.GetSetX && TabTrajet[lignes, colonnes].PointArr.GetSetY != TrajetEmprunter.PointDep.GetSetY)
                         {
-                            TrajetChoisi = TabTrajet[lignes, colonnes];
-                            Cout = TabTrajet[lignes, colonnes].CoutTrajet;
+                            if (TabTrajet[lignes, colonnes].CoutTrajet < Cout || Cout==null)
+                            {
+                                TrajetChoisi = TabTrajet[lignes, colonnes];
+                                Cout = TabTrajet[lignes, colonnes].CoutTrajet;
+                            }
+                            //lignesTrajetChoisi = lignes;
                         }
                     }
                 }
+                if (TrajetChoisi != null)
+                {
+                    TrajetChoisi.AfficheTrajet();
+                    TrajetEmprunter = TrajetChoisi;
+                }
+
+                /*for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
+                {
+                    TabTrajet[lignesTrajetChoisi, colonnes] = null;
+                }*/
+
+                    nbRepet++;
+                if (nbRepet == 12)
+                    Continuer = false;
             }
-            TrajetChoisi.AfficheTrajet();
         }
 
         public static List<Point> RecuperationPointsImportants()
@@ -99,8 +126,8 @@ namespace Algo
 
             while (!reader.EndOfStream)
             {
-                string line = reader.ReadLine();
-                string[] values = line.Split(';');
+                string? line = reader.ReadLine();
+                string[]? values = line.Split(';');
 
                 for (int colonne = 0; colonne < values.Length; colonne++)
                 {
