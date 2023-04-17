@@ -11,12 +11,10 @@ namespace Algo
 {
     internal class Program : Dijkstra
     {
+
+        //Variable score
         public static void Main(string[] args)
         {
-            int? Cout = null;
-            Trajet? TrajetChoisi = null;
-            Trajet? TrajetEmprunter = null;
-
             Map map = new Map();
 
             Point PointDeDepart = new Point(2, 14);
@@ -37,7 +35,7 @@ namespace Algo
                     if (PointsImportants[lignes] != PointsImportants[colonnes])
                     {
                         Trajet? CalculTrajet = new Trajet();
-                        DijkstraAlgo(PointsImportants[lignes], PointsImportants[colonnes], map, ref CalculTrajet);
+                        DijkstraAlgo(PointsImportants[lignes], PointsImportants[colonnes], map, CalculTrajet);
                         TabTrajet[lignes, colonnes] = CalculTrajet;
                         CalculTrajet = null;
                         //TabTrajet[lignes, colonnes].AfficheTrajet();
@@ -54,65 +52,13 @@ namespace Algo
             for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
             {
                 Trajet CalculTrajet = new Trajet();
-                DijkstraAlgo(PointDeDepart, PointsImportants[lignes], map, ref CalculTrajet);
+                DijkstraAlgo(PointDeDepart, PointsImportants[lignes], map,CalculTrajet);
                 TabTrajetEntreDepartPoint[lignes] = CalculTrajet;
                 CalculTrajet = null;
                 //TabTrajetEntreDepartPoint[lignes].AfficheTrajet();
             }
 
-            for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
-            {
-                if (TabTrajetEntreDepartPoint[lignes].CoutTrajet<Cout || Cout==null)
-                {
-                    TrajetChoisi = TabTrajetEntreDepartPoint[lignes];
-                    Cout = TabTrajetEntreDepartPoint[lignes].CoutTrajet;
-                }
-            }
-            if (TrajetChoisi != null)
-            {
-                TrajetChoisi.AfficheTrajet();
-                TrajetEmprunter = TrajetChoisi;
-            }
-
-            bool Continuer = true;
-            int nbRepet = 0;
-
-            while (Continuer==true)
-            {
-                Cout = null;
-
-                //int lignesTrajetChoisi=0;
-                for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
-                {
-                    for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
-                    {
-                        if (TabTrajet[lignes, colonnes] != null && TabTrajet[lignes, colonnes].PointDep.GetSetX == TrajetEmprunter.PointArr.GetSetX && TabTrajet[lignes, colonnes].PointDep.GetSetY == TrajetEmprunter.PointArr.GetSetY
-                            && TabTrajet[lignes, colonnes].PointArr.GetSetX != TrajetEmprunter.PointDep.GetSetX && TabTrajet[lignes, colonnes].PointArr.GetSetY != TrajetEmprunter.PointDep.GetSetY)
-                        {
-                            if (TabTrajet[lignes, colonnes].CoutTrajet < Cout || Cout==null)
-                            {
-                                TrajetChoisi = TabTrajet[lignes, colonnes];
-                                Cout = TabTrajet[lignes, colonnes].CoutTrajet;
-                            }
-                            //lignesTrajetChoisi = lignes;
-                        }
-                    }
-                }
-                if (TrajetChoisi != null)
-                {
-                    TrajetChoisi.AfficheTrajet();
-                    TrajetEmprunter = TrajetChoisi;
-                }
-
-                /*for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
-                {
-                    TabTrajet[lignesTrajetChoisi, colonnes] = null;
-                }*/
-
-                    nbRepet++;
-                if (nbRepet == 12)
-                    Continuer = false;
-            }
+            ChoixDuTrajet(PointsImportants,TabTrajetEntreDepartPoint,TabTrajet, PointDeDepart);
         }
 
         public static List<Point> RecuperationPointsImportants()
@@ -139,6 +85,175 @@ namespace Algo
             }
 
             return PointsImportants;
+        }
+
+        public static void ChoixDuTrajet(List<Point> PointsImportants, Trajet[] TabTrajetEntreDepartPoint,Trajet[,] TabTrajet, Point PointDeDepart)
+        {
+            bool Continuer = true;
+            int? ScorePotentiel = null;
+            Trajet? TrajetChoisi = null;
+            Trajet? TrajetEmprunter = null;
+            int? Score = 0;
+            int nombrePointImportantsAtteint = 0;
+            int nombrePointImportantAAteindre = 0;
+            int? Cout = null;
+
+            for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
+            {
+                if (TabTrajetEntreDepartPoint[lignes].PointArr.GetSetUtile==1)
+                {
+                    nombrePointImportantAAteindre++;
+                }
+            }
+
+            //Choix du trajet entre le point de départ et le premier point importants le plus proche
+            for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
+            { 
+                if (Score+(TabTrajetEntreDepartPoint[lignes].PointArr.GetSetValeur-TabTrajetEntreDepartPoint[lignes].CoutTrajet) > Score + ScorePotentiel || ScorePotentiel == null)
+                {
+                    TrajetChoisi = TabTrajetEntreDepartPoint[lignes];
+                    ScorePotentiel = TabTrajetEntreDepartPoint[lignes].PointArr.GetSetValeur - TabTrajetEntreDepartPoint[lignes].CoutTrajet;
+                }
+            }
+            if (TrajetChoisi!=null)
+            {
+                TrajetChoisi.AfficheTrajet();
+                TrajetEmprunter = TrajetChoisi;
+
+                if (TrajetChoisi.PointArr.GetSetUtile == 1)
+                {
+                    nombrePointImportantsAtteint++;
+                }
+
+                Score = Score + ScorePotentiel;
+                Console.WriteLine("Score : " + Score);
+            }
+
+            //Permet de ne pas repasser sur les memes points
+            for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
+            {
+                for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
+                {
+                    if (TabTrajet[lignes, colonnes] != null && TrajetEmprunter != null
+                        && TabTrajet[lignes, colonnes].PointArr.GetSetX == TrajetEmprunter.PointArr.GetSetX
+                        && TabTrajet[lignes, colonnes].PointArr.GetSetY == TrajetEmprunter.PointArr.GetSetY)
+                    {
+                        TabTrajet[lignes, colonnes] = null;
+                    }
+                }
+            }
+
+
+            while (Continuer == true)
+            {
+                TrajetChoisi = null;
+                ScorePotentiel = null;
+                Cout = null;
+
+                int lignesTrajetChoisi = 0;
+
+                //Choix du trajet
+                for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
+                {
+                    for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
+                    {
+                        if (TrajetEmprunter != null && TabTrajet[lignes, colonnes] != null 
+                            && TabTrajet[lignes, colonnes].PointDep.GetSetX == TrajetEmprunter.PointArr.GetSetX 
+                            && TabTrajet[lignes, colonnes].PointDep.GetSetY == TrajetEmprunter.PointArr.GetSetY
+                            && TabTrajet[lignes, colonnes].PointArr.GetSetX != TrajetEmprunter.PointDep.GetSetX 
+                            && TabTrajet[lignes, colonnes].PointArr.GetSetY != TrajetEmprunter.PointDep.GetSetY
+                            && TabTrajet[lignes, colonnes].PointDep.GetSetX != PointDeDepart.GetSetX 
+                            && TabTrajet[lignes, colonnes].PointDep.GetSetY != PointDeDepart.GetSetY)
+                        {
+
+                            if (Score +(TabTrajet[lignes, colonnes].PointArr.GetSetValeur - TabTrajet[lignes, colonnes].CoutTrajet) > Score + ScorePotentiel || ScorePotentiel == null)
+                            {
+                                TrajetChoisi = TabTrajet[lignes, colonnes];
+                                ScorePotentiel = TabTrajet[lignes, colonnes].PointArr.GetSetValeur - TabTrajet[lignes, colonnes].CoutTrajet;
+                                lignesTrajetChoisi = lignes;
+                            }
+                        }
+                    }
+                }
+
+                if (TrajetChoisi != null && TrajetChoisi != TrajetEmprunter)
+                {
+
+                    TrajetChoisi.AfficheTrajet();
+                    TrajetEmprunter = TrajetChoisi;
+
+                    if(TrajetChoisi.PointArr.GetSetUtile==1)
+                    {
+                        nombrePointImportantsAtteint++;
+                    }
+
+                    Score = Score + ScorePotentiel;
+                    Console.WriteLine("Score : " + Score);
+                }
+                else
+                {
+                    if(nombrePointImportantsAtteint==nombrePointImportantAAteindre)
+                        Continuer = false;
+                    else
+                    {
+                        for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
+                        {
+                            for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
+                            {
+                                if (TabTrajet[lignes, colonnes] != null && TrajetEmprunter != null 
+                                    && TabTrajet[lignes, colonnes].PointDep.GetSetX == TrajetEmprunter.PointArr.GetSetX 
+                                    && TabTrajet[lignes, colonnes].PointDep.GetSetY == TrajetEmprunter.PointArr.GetSetY
+                                    && TabTrajet[lignes, colonnes].PointArr.GetSetX != TrajetEmprunter.PointDep.GetSetX 
+                                    && TabTrajet[lignes, colonnes].PointArr.GetSetY != TrajetEmprunter.PointDep.GetSetY
+                                    && TabTrajet[lignes, colonnes].PointDep.GetSetX != PointDeDepart.GetSetX 
+                                    && TabTrajet[lignes, colonnes].PointDep.GetSetY != PointDeDepart.GetSetY)
+                                {
+
+                                    if (TabTrajet[lignes, colonnes].CoutTrajet < Cout || Cout == null)
+                                    {
+                                        TrajetChoisi = TabTrajet[lignes, colonnes];
+                                        Cout = TabTrajet[lignes, colonnes].CoutTrajet;
+                                    }
+                                    lignesTrajetChoisi = lignes;
+                                }
+                            }
+                        }
+                        if (TrajetChoisi != null && TrajetChoisi != TrajetEmprunter)
+                        {
+
+                            TrajetChoisi.AfficheTrajet();
+                            TrajetEmprunter = TrajetChoisi;
+
+                            if (TrajetChoisi.PointArr.GetSetUtile == 1)
+                            {
+                                nombrePointImportantsAtteint++;
+                            }
+
+                            Score = Score + (TrajetChoisi.PointArr.GetSetValeur - Cout);
+                            Console.WriteLine("Score : " + Score);
+                        }
+                    }
+                }
+
+                //Permet de ne pas repasser sur les memes points
+                for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
+                {
+                    TabTrajet[lignesTrajetChoisi, colonnes] = null;
+                }
+
+                for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
+                {
+                    for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
+                    {
+                        if (TabTrajet[lignes, colonnes] != null && TrajetEmprunter != null
+                            && TabTrajet[lignes, colonnes].PointArr.GetSetX == TrajetEmprunter.PointArr.GetSetX
+                            && TabTrajet[lignes, colonnes].PointArr.GetSetY == TrajetEmprunter.PointArr.GetSetY)
+                        {
+                            TabTrajet[lignes, colonnes] = null;
+                        }
+                    }
+                }
+            }
         }
     }
 }

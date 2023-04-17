@@ -10,7 +10,7 @@ namespace CheminAlgo
     internal abstract class Dijkstra
     {
 
-        public static void DijkstraAlgo(Point Depart, Point Arriver, Map map,ref Trajet Trajet)
+        public static void DijkstraAlgo(Point Depart, Point Arriver, Map map,Trajet Trajet)
         {
             Trajet.PointDep = Depart;
             Trajet.PointArr = Arriver;
@@ -44,7 +44,7 @@ namespace CheminAlgo
                     //Console.WriteLine("Arrivé !");
                     //Console.WriteLine(PointActuel.GetSetX + ";" + PointActuel.GetSetY);
 
-                    /*Console.WriteLine(*/ReconstitutionChemin(PointActuel, ref Trajet)/*)*/;
+                    /*Console.WriteLine(*/ReconstitutionChemin(PointActuel,Trajet)/*)*/;
 
                     DistanceTotal = PointActuel.SetDistance + map.ValeurPoint(PointActuel.GetSetX, PointActuel.GetSetY);
                     //Console.WriteLine("Cout pour aller au point :" + DistanceTotal);
@@ -171,7 +171,7 @@ namespace CheminAlgo
             Thread.Sleep(1);
         }
 
-        private static string ReconstitutionChemin(Point Point,ref Trajet Trajet)
+        private static string ReconstitutionChemin(Point Point,Trajet Trajet)
         {
             string Chemin = "";
             while (Point.SetParent != null)

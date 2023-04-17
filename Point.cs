@@ -16,12 +16,14 @@ namespace Algo
         {
             this.x = 0;
             this.y = 0;
+            this.utile = 0;
         }
 
         public Point(int CoodX, int CoodY)
         {
             this.x = CoodX;
             this.y = CoodY;
+            this.utile = 0;
         }
 
         public Point(int x, int y, int valeur, int utile)
@@ -42,6 +44,10 @@ namespace Algo
         public int GetSetX { get { return x; } set { this.x = value; } }
         public int GetSetY { get { return y; } set { this.y = value; } }
         public Point? SetParent { get; set; }
+
+        public int GetSetUtile { get { return utile; } }
+
+        public int GetSetValeur { get { return valeur; } }
 
 
     }
