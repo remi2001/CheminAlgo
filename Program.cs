@@ -58,7 +58,9 @@ namespace Algo
                 //TabTrajetEntreDepartPoint[lignes].AfficheTrajet();
             }
 
-            ChoixDuTrajet(PointsImportants,TabTrajetEntreDepartPoint,TabTrajet, PointDeDepart);
+            ChoixDuTrajet(PointsImportants,TabTrajetEntreDepartPoint,TabTrajet, PointDeDepart, map);
+
+            map.AfficheMap();
         }
 
         public static List<Point> RecuperationPointsImportants()
@@ -87,7 +89,7 @@ namespace Algo
             return PointsImportants;
         }
 
-        public static void ChoixDuTrajet(List<Point> PointsImportants, Trajet[] TabTrajetEntreDepartPoint,Trajet[,] TabTrajet, Point PointDeDepart)
+        public static void ChoixDuTrajet(List<Point> PointsImportants, Trajet[] TabTrajetEntreDepartPoint,Trajet[,] TabTrajet, Point PointDeDepart, Map map)
         {
             bool Continuer = true;
             int? ScorePotentiel = null;

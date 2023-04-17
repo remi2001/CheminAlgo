@@ -49,5 +49,5 @@ namespace Algo
             return TabMap[x, y];
         }
 
-        public int[,] GetMap { get;}
+        public int[,] GetMap { get; set; }
     }}
