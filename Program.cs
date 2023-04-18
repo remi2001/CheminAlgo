@@ -56,7 +56,7 @@ namespace Algo
 
             ChoixDuTrajet(PointsImportants,TabTrajetEntreDepartPoint,TabTrajet, PointDeDepart, map);
 
-            map.AfficheMap();
+            //map.AfficheMap();
         }
 
         public static List<Point> RecuperationPointsImportants()
