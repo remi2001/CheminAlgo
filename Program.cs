@@ -19,8 +19,6 @@ namespace Algo
 
             Point PointDeDepart = new Point(2, 14);
 
-            //map.AfficheMap();
-
             List<Point> PointsImportants = new List<Point>();
 
             PointsImportants = RecuperationPointsImportants();
@@ -38,7 +36,6 @@ namespace Algo
                         DijkstraAlgo(PointsImportants[lignes], PointsImportants[colonnes], map, CalculTrajet);
                         TabTrajet[lignes, colonnes] = CalculTrajet;
                         CalculTrajet = null;
-                        //TabTrajet[lignes, colonnes].AfficheTrajet();
                     }
                     else
                     {
@@ -55,7 +52,6 @@ namespace Algo
                 DijkstraAlgo(PointDeDepart, PointsImportants[lignes], map,CalculTrajet);
                 TabTrajetEntreDepartPoint[lignes] = CalculTrajet;
                 CalculTrajet = null;
-                //TabTrajetEntreDepartPoint[lignes].AfficheTrajet();
             }
 
             ChoixDuTrajet(PointsImportants,TabTrajetEntreDepartPoint,TabTrajet, PointDeDepart, map);

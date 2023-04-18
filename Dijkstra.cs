@@ -12,43 +12,33 @@ namespace CheminAlgo
 
         public static void DijkstraAlgo(Point Depart, Point Arriver, Map map,Trajet Trajet)
         {
-            Trajet.PointDep = Depart;
-            Trajet.PointArr = Arriver;
-
-
             List<Point> FileAttente = new List<Point>();
             List<Point> ListVoisin = new List<Point>();
+
             Point PointActuel;
             int DistanceTotal;
             bool Arrive = false;
 
             char[,] TabAvancé = new char[20, 20];
 
+            Trajet.PointDep = Depart;
+            Trajet.PointArr = Arriver;
             Depart.SetDistance = 0;
             FileAttente.Add(Depart);
 
             while (FileAttente.Count() != 0 && Arrive == false)
             {
-                //AffichageTabAvolution(TabAvancé);
-
                 PointActuel = SelectionPoids(FileAttente);
 
                 FileAttente.Remove(PointActuel);
 
                 if (PointActuel.GetSetX == Arriver.GetSetX && PointActuel.GetSetY == Arriver.GetSetY)
                 {
-                    TabAvancé[PointActuel.GetSetX, PointActuel.GetSetY] = 'O';
-
-                    //AffichageTabAvolution(TabAvancé);
-
-                    //Console.WriteLine("Arrivé !");
-                    //Console.WriteLine(PointActuel.GetSetX + ";" + PointActuel.GetSetY);
-
-                    /*Console.WriteLine(*/ReconstitutionChemin(PointActuel,Trajet)/*)*/;
+                    ReconstitutionChemin(PointActuel,Trajet);
 
                     DistanceTotal = PointActuel.SetDistance + map.ValeurPoint(PointActuel.GetSetX, PointActuel.GetSetY);
-                    //Console.WriteLine("Cout pour aller au point :" + DistanceTotal);
                     Trajet.CoutTrajet = DistanceTotal;
+
                     Arrive = true;
                 }
                 else
@@ -66,7 +56,6 @@ namespace CheminAlgo
                             if (!FileAttente.Any(p => p.GetSetX == Voisin.GetSetX && p.GetSetY == Voisin.GetSetY))
                             {
                                 FileAttente.Add(Voisin);
-                                TabAvancé[Voisin.GetSetX, Voisin.GetSetY] = 'X';
                             }
                         }
                     }
@@ -106,7 +95,6 @@ namespace CheminAlgo
                 }
             }
 
-            //if (PositionY + 1 <= map.GetMap.GetLength(1))
             if (PositionY + 1 < 20)
             {
                 //Vérification du voisin NORD
@@ -118,7 +106,6 @@ namespace CheminAlgo
                 }
             }
 
-            //if (PositionX + 1 <= map.GetMap.GetLength(0))
             if (PositionX + 1 < 20)
             {
                 //Vérification du voisin EST
@@ -174,6 +161,7 @@ namespace CheminAlgo
         private static string ReconstitutionChemin(Point Point,Trajet Trajet)
         {
             string Chemin = "";
+
             while (Point.SetParent != null)
             {
                 Chemin = "(" + Point.GetSetX + ";" + Point.GetSetY + ")" + Chemin;
@@ -181,6 +169,7 @@ namespace CheminAlgo
                 Trajet.ListPointPracourure.Add(Point);
             }
             Chemin = "(" + Point.GetSetX + ";" + Point.GetSetY + ")" + Chemin;
+            
             return Chemin;
         }
     }
