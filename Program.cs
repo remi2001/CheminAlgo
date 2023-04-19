@@ -11,8 +11,6 @@ namespace Algo
 {
     internal class Program : Dijkstra
     {
-
-        //Variable score
         public static void Main(string[] args)
         {
             Map map = new Map();
@@ -24,6 +22,8 @@ namespace Algo
             PointsImportants = RecuperationPointsImportants();
 
             Trajet[,] TabTrajet = new Trajet[PointsImportants.Count,PointsImportants.Count];
+
+            Trajet TrajetFinal;
             
             //Calcul des trajets entre tous les points importants
             for(int lignes=0;lignes<PointsImportants.Count;lignes++)
@@ -54,9 +54,10 @@ namespace Algo
                 CalculTrajet = null;
             }
 
-            ChoixDuTrajet(PointsImportants,TabTrajetEntreDepartPoint,TabTrajet, PointDeDepart, map);
+            TrajetFinal = ChoixDuTrajet(PointsImportants,TabTrajetEntreDepartPoint,TabTrajet, PointDeDepart);
 
-            //map.AfficheMap();
+            TrajetFinal.AfficheTrajet();
+            map.AfficheMapEtTrajet(TrajetFinal);
         }
 
         public static List<Point> RecuperationPointsImportants()
@@ -85,17 +86,19 @@ namespace Algo
             return PointsImportants;
         }
 
-        public static void ChoixDuTrajet(List<Point> PointsImportants, Trajet[] TabTrajetEntreDepartPoint,Trajet[,] TabTrajet, Point PointDeDepart, Map map)
+        public static Trajet ChoixDuTrajet(List<Point> PointsImportants, Trajet[] TabTrajetEntreDepartPoint,Trajet[,] TabTrajet, Point PointDeDepart)
         {
             bool Continuer = true;
             int? ScorePotentiel = null;
             Trajet? TrajetChoisi = null;
             Trajet? TrajetEmprunter = null;
+            Trajet? TrajetARetourner = null;
             int? Score = 0;
             int nombrePointImportantsAtteint = 0;
             int nombrePointImportantAAteindre = 0;
             int? Cout = null;
 
+            //Compte le nombre de points importants présent a ateindre
             for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
             {
                 if (TabTrajetEntreDepartPoint[lignes].PointArr.GetSetUtile==1)
@@ -104,7 +107,7 @@ namespace Algo
                 }
             }
 
-            //Choix du trajet entre le point de départ et le premier point importants le plus proche
+            //Choix du trajet entre le point de départ et le premier point rapportant le plus de score
             for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
             { 
                 if (Score+(TabTrajetEntreDepartPoint[lignes].PointArr.GetSetValeur-TabTrajetEntreDepartPoint[lignes].CoutTrajet) > Score + ScorePotentiel || ScorePotentiel == null)
@@ -113,10 +116,13 @@ namespace Algo
                     ScorePotentiel = TabTrajetEntreDepartPoint[lignes].PointArr.GetSetValeur - TabTrajetEntreDepartPoint[lignes].CoutTrajet;
                 }
             }
+
+            //Stockage du trajet que l'on va emprunter + affichage + vérification si le point atteint est un point important
             if (TrajetChoisi!=null)
             {
                 TrajetChoisi.AfficheTrajet();
                 TrajetEmprunter = TrajetChoisi;
+                TrajetARetourner = TrajetEmprunter;
 
                 if (TrajetChoisi.PointArr.GetSetUtile == 1)
                 {
@@ -127,7 +133,8 @@ namespace Algo
                 Console.WriteLine("Score : " + Score);
             }
 
-            //Permet de ne pas repasser sur les memes points
+            //Supression des trajet dont le point d'arrivé et égale au point d'arrivén du trajet que l'on a choisi
+            //Ceci permet de ne pas repasser deux fois par le meme point
             for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
             {
                 for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
@@ -150,7 +157,7 @@ namespace Algo
 
                 int lignesTrajetChoisi = 0;
 
-                //Choix du trajet
+                //Choix du trajet en fonction du trajet qui rapporte le plus de score
                 for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
                 {
                     for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
@@ -174,13 +181,21 @@ namespace Algo
                     }
                 }
 
+                //Stockage du trajet que l'on va emprunter + affichage + vérification si le point atteint est un point important
                 if (TrajetChoisi != null && TrajetChoisi != TrajetEmprunter)
                 {
 
                     TrajetChoisi.AfficheTrajet();
                     TrajetEmprunter = TrajetChoisi;
 
-                    if(TrajetChoisi.PointArr.GetSetUtile==1)
+                    if (TrajetARetourner != null)
+                    {
+                        TrajetARetourner.PointArr = TrajetEmprunter.PointArr;
+                        foreach (Point p in TrajetEmprunter.ListPointPracourure)
+                            TrajetARetourner.ListPointPracourure.Add(p);
+                    }
+
+                    if (TrajetChoisi.PointArr.GetSetUtile==1)
                     {
                         nombrePointImportantsAtteint++;
                     }
@@ -190,10 +205,13 @@ namespace Algo
                 }
                 else
                 {
+                    //Si on a atteint tous les points importants l'on peut s'arreter la
+                    //Sinon il faut parcou les autres points importants
                     if(nombrePointImportantsAtteint==nombrePointImportantAAteindre)
                         Continuer = false;
                     else
                     {
+                        //Choix du trajte en foction du point qui coute le moins
                         for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
                         {
                             for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
@@ -216,6 +234,7 @@ namespace Algo
                                 }
                             }
                         }
+                        //Stockage du trajet que l'on va emprunter + affichage + vérification si le point atteint est un point important
                         if (TrajetChoisi != null && TrajetChoisi != TrajetEmprunter)
                         {
 
@@ -233,12 +252,14 @@ namespace Algo
                     }
                 }
 
-                //Permet de ne pas repasser sur les memes points
+                //Supression de la lignes complète dont le point de depart correspond au point de depart du trajt Choisi
                 for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
                 {
                     TabTrajet[lignesTrajetChoisi, colonnes] = null;
                 }
 
+                //Supression des trajet dont le point d'arrivé et égale au point d'arrivén du trajet que l'on a choisi
+                //Ceci permet de ne pas repasser deux fois par le meme point
                 for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
                 {
                     for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
@@ -252,6 +273,8 @@ namespace Algo
                     }
                 }
             }
+
+            return TrajetARetourner;
         }
     }
 }

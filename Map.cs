@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CheminAlgo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,55 @@ namespace Algo
                         Console.Write(TabMap[ligne, colonne] + "|");
                     else
                         Console.Write(TabMap[ligne, colonne] + " |");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public void AfficheMapEtTrajet(Trajet Trajet)
+        {
+            bool ecrit = false;
+            
+            for (int ligne = 0; ligne < 20; ligne++)
+            {
+                Console.Write("|");
+                for (int colonne = 0; colonne < 20; colonne++)
+                {
+                    foreach (Point p in Trajet.ListPointPracourure)
+                    {
+                        if (p.GetSetX == ligne && p.GetSetY == colonne)
+                        {
+                            if (TabMap[ligne, colonne] == (-1))
+                            {
+                                Console.BackgroundColor = ConsoleColor.Red;
+                                Console.Write(TabMap[ligne, colonne]);
+                                Console.BackgroundColor = ConsoleColor.Black;
+                                Console.Write("|");
+                            }
+                            else
+                            {
+                                Console.BackgroundColor = ConsoleColor.Red;
+                                Console.Write(TabMap[ligne, colonne]);
+                                Console.BackgroundColor = ConsoleColor.Black;
+                                Console.Write(" |");
+                            }
+                            ecrit = true;
+                        }
+                    }
+                    if (ecrit == false)
+                    {
+                        if (TabMap[ligne, colonne] == (-1))
+                        {
+                            Console.BackgroundColor = ConsoleColor.Black;
+                            Console.Write(TabMap[ligne, colonne] + "|");
+                        }
+                        else
+                        {
+                            Console.BackgroundColor = ConsoleColor.Black;
+                            Console.Write(TabMap[ligne, colonne] + " |");
+                        }
+                    }
+                    ecrit = false;
                 }
                 Console.WriteLine();
             }
