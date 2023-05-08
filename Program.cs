@@ -86,7 +86,7 @@ namespace Algo
             return PointsImportants;
         }
 
-        public static Trajet ChoixDuTrajet(List<Point> PointsImportants, Trajet[] TabTrajetEntreDepartPoint,Trajet[,] TabTrajet, Point PointDeDepart)
+        public static Trajet ChoixDuTrajet(List<Point> PointsImportants, Trajet[] TabTrajetEntreDepartPoint, Trajet[,] TabTrajet, Point PointDeDepart)
         {
             bool Continuer = true;
             int? ScorePotentiel = null;
@@ -101,16 +101,17 @@ namespace Algo
             //Compte le nombre de points importants présent a ateindre
             for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
             {
-                if (TabTrajetEntreDepartPoint[lignes].PointArr.GetSetUtile==1)
+                if (TabTrajetEntreDepartPoint[lignes].PointArr.GetSetUtile == 1)
                 {
                     nombrePointImportantAAteindre++;
                 }
             }
+            
 
             //Choix du trajet entre le point de départ et le premier point rapportant le plus de score
             for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
-            { 
-                if (Score+(TabTrajetEntreDepartPoint[lignes].PointArr.GetSetValeur-TabTrajetEntreDepartPoint[lignes].CoutTrajet) > Score + ScorePotentiel || ScorePotentiel == null)
+            {
+                if (Score + (TabTrajetEntreDepartPoint[lignes].PointArr.GetSetValeur - TabTrajetEntreDepartPoint[lignes].CoutTrajet) > Score + ScorePotentiel || Score==0)
                 {
                     TrajetChoisi = TabTrajetEntreDepartPoint[lignes];
                     ScorePotentiel = TabTrajetEntreDepartPoint[lignes].PointArr.GetSetValeur - TabTrajetEntreDepartPoint[lignes].CoutTrajet;
@@ -118,7 +119,7 @@ namespace Algo
             }
 
             //Stockage du trajet que l'on va emprunter + affichage + vérification si le point atteint est un point important
-            if (TrajetChoisi!=null)
+            if (TrajetChoisi != null)
             {
                 TrajetChoisi.AfficheTrajet();
                 TrajetEmprunter = TrajetChoisi;
@@ -133,15 +134,17 @@ namespace Algo
                 Console.WriteLine("Score : " + Score);
             }
 
-            //Supression des trajet dont le point d'arrivé et égale au point d'arrivén du trajet que l'on a choisi
+            //Supression des trajet dont le point d'arrivé et égale au point d'arrivé du trajet que l'on a choisi
             //Ceci permet de ne pas repasser deux fois par le meme point
             for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
             {
                 for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
                 {
                     if (TabTrajet[lignes, colonnes] != null && TrajetEmprunter != null
-                        && TabTrajet[lignes, colonnes].PointArr.GetSetX == TrajetEmprunter.PointArr.GetSetX
-                        && TabTrajet[lignes, colonnes].PointArr.GetSetY == TrajetEmprunter.PointArr.GetSetY)
+                        && ((TabTrajet[lignes, colonnes].PointArr.GetSetX == TrajetEmprunter.PointArr.GetSetX
+                        && TabTrajet[lignes, colonnes].PointArr.GetSetY == TrajetEmprunter.PointArr.GetSetY) ||
+                        (TabTrajet[lignes, colonnes].PointDep.GetSetX == TrajetEmprunter.PointArr.GetSetX
+                        && TabTrajet[lignes, colonnes].PointDep.GetSetY == TrajetEmprunter.PointArr.GetSetY)))
                     {
                         TabTrajet[lignes, colonnes] = null;
                     }
@@ -162,16 +165,16 @@ namespace Algo
                 {
                     for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
                     {
-                        if (TrajetEmprunter != null && TabTrajet[lignes, colonnes] != null 
-                            && TabTrajet[lignes, colonnes].PointDep.GetSetX == TrajetEmprunter.PointArr.GetSetX 
+                        if (TrajetEmprunter != null && TabTrajet[lignes, colonnes] != null
+                            && TabTrajet[lignes, colonnes].PointDep.GetSetX == TrajetEmprunter.PointArr.GetSetX
                             && TabTrajet[lignes, colonnes].PointDep.GetSetY == TrajetEmprunter.PointArr.GetSetY
-                            && TabTrajet[lignes, colonnes].PointArr.GetSetX != TrajetEmprunter.PointDep.GetSetX 
+                            && TabTrajet[lignes, colonnes].PointArr.GetSetX != TrajetEmprunter.PointDep.GetSetX
                             && TabTrajet[lignes, colonnes].PointArr.GetSetY != TrajetEmprunter.PointDep.GetSetY
-                            && TabTrajet[lignes, colonnes].PointDep.GetSetX != PointDeDepart.GetSetX 
+                            && TabTrajet[lignes, colonnes].PointDep.GetSetX != PointDeDepart.GetSetX
                             && TabTrajet[lignes, colonnes].PointDep.GetSetY != PointDeDepart.GetSetY)
                         {
 
-                            if (Score +(TabTrajet[lignes, colonnes].PointArr.GetSetValeur - TabTrajet[lignes, colonnes].CoutTrajet) > Score + ScorePotentiel || ScorePotentiel == null)
+                            if (Score + (TabTrajet[lignes, colonnes].PointArr.GetSetValeur - TabTrajet[lignes, colonnes].CoutTrajet) > Score + ScorePotentiel || ScorePotentiel == null)
                             {
                                 TrajetChoisi = TabTrajet[lignes, colonnes];
                                 ScorePotentiel = TabTrajet[lignes, colonnes].PointArr.GetSetValeur - TabTrajet[lignes, colonnes].CoutTrajet;
@@ -195,7 +198,7 @@ namespace Algo
                             TrajetARetourner.ListPointPracourure.Add(p);
                     }
 
-                    if (TrajetChoisi.PointArr.GetSetUtile==1)
+                    if (TrajetChoisi.PointArr.GetSetUtile == 1)
                     {
                         nombrePointImportantsAtteint++;
                     }
@@ -205,58 +208,57 @@ namespace Algo
                 }
                 else
                 {
-                    //Si on a atteint tous les points importants l'on peut s'arreter la
-                    //Sinon il faut parcou les autres points importants
-                    if(nombrePointImportantsAtteint==nombrePointImportantAAteindre)
-                        Continuer = false;
-                    else
+                    //Choix du trajet en foction du point qui coute le moins
+                    for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
                     {
-                        //Choix du trajte en foction du point qui coute le moins
-                        for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
+                        for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
                         {
-                            for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
+                            if (TabTrajet[lignes, colonnes] != null && TrajetEmprunter != null
+                                && TabTrajet[lignes, colonnes].PointDep.GetSetX == TrajetEmprunter.PointArr.GetSetX
+                                && TabTrajet[lignes, colonnes].PointDep.GetSetY == TrajetEmprunter.PointArr.GetSetY
+                                && TabTrajet[lignes, colonnes].PointArr.GetSetX != TrajetEmprunter.PointDep.GetSetX
+                                && TabTrajet[lignes, colonnes].PointArr.GetSetY != TrajetEmprunter.PointDep.GetSetY
+                                && TabTrajet[lignes, colonnes].PointDep.GetSetX != PointDeDepart.GetSetX
+                                && TabTrajet[lignes, colonnes].PointDep.GetSetY != PointDeDepart.GetSetY)
                             {
-                                if (TabTrajet[lignes, colonnes] != null && TrajetEmprunter != null 
-                                    && TabTrajet[lignes, colonnes].PointDep.GetSetX == TrajetEmprunter.PointArr.GetSetX 
-                                    && TabTrajet[lignes, colonnes].PointDep.GetSetY == TrajetEmprunter.PointArr.GetSetY
-                                    && TabTrajet[lignes, colonnes].PointArr.GetSetX != TrajetEmprunter.PointDep.GetSetX 
-                                    && TabTrajet[lignes, colonnes].PointArr.GetSetY != TrajetEmprunter.PointDep.GetSetY
-                                    && TabTrajet[lignes, colonnes].PointDep.GetSetX != PointDeDepart.GetSetX 
-                                    && TabTrajet[lignes, colonnes].PointDep.GetSetY != PointDeDepart.GetSetY)
+
+                                if (TabTrajet[lignes, colonnes].CoutTrajet < Cout || Cout == null)
                                 {
-
-                                    if (TabTrajet[lignes, colonnes].CoutTrajet < Cout || Cout == null)
-                                    {
-                                        TrajetChoisi = TabTrajet[lignes, colonnes];
-                                        Cout = TabTrajet[lignes, colonnes].CoutTrajet;
-                                    }
-                                    lignesTrajetChoisi = lignes;
+                                    TrajetChoisi = TabTrajet[lignes, colonnes];
+                                    Cout = TabTrajet[lignes, colonnes].CoutTrajet;
                                 }
+                                lignesTrajetChoisi = lignes;
                             }
                         }
-                        //Stockage du trajet que l'on va emprunter + affichage + vérification si le point atteint est un point important
-                        if (TrajetChoisi != null && TrajetChoisi != TrajetEmprunter)
+                    }
+                    //Stockage du trajet que l'on va emprunter + affichage + vérification si le point atteint est un point important
+                    if (TrajetChoisi != null && TrajetChoisi != TrajetEmprunter)
+                    {
+
+                        TrajetChoisi.AfficheTrajet();
+                        TrajetEmprunter = TrajetChoisi;
+
+                        if (TrajetARetourner != null)
                         {
-
-                            TrajetChoisi.AfficheTrajet();
-                            TrajetEmprunter = TrajetChoisi;
-
-                            if (TrajetChoisi.PointArr.GetSetUtile == 1)
-                            {
-                                nombrePointImportantsAtteint++;
-                            }
-
-                            Score = Score + (TrajetChoisi.PointArr.GetSetValeur - Cout);
-                            Console.WriteLine("Score : " + Score);
+                            TrajetARetourner.PointArr = TrajetEmprunter.PointArr;
+                            foreach (Point p in TrajetEmprunter.ListPointPracourure)
+                                TrajetARetourner.ListPointPracourure.Add(p);
                         }
+
+                        if (TrajetChoisi.PointArr.GetSetUtile == 1)
+                        {
+                            nombrePointImportantsAtteint++;
+                        }
+
+                        Score = Score + (TrajetChoisi.PointArr.GetSetValeur - Cout);
+                        Console.WriteLine("Score : " + Score);
                     }
                 }
 
-                //Supression de la lignes complète dont le point de depart correspond au point de depart du trajt Choisi
-                for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
-                {
-                    TabTrajet[lignesTrajetChoisi, colonnes] = null;
-                }
+                //Si on a atteint tous les points importants l'on peut s'arreter la
+                //Sinon il faut parcou les autres points importants
+                if (nombrePointImportantsAtteint == nombrePointImportantAAteindre)
+                    Continuer = false;
 
                 //Supression des trajet dont le point d'arrivé et égale au point d'arrivén du trajet que l'on a choisi
                 //Ceci permet de ne pas repasser deux fois par le meme point
@@ -265,8 +267,10 @@ namespace Algo
                     for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
                     {
                         if (TabTrajet[lignes, colonnes] != null && TrajetEmprunter != null
-                            && TabTrajet[lignes, colonnes].PointArr.GetSetX == TrajetEmprunter.PointArr.GetSetX
-                            && TabTrajet[lignes, colonnes].PointArr.GetSetY == TrajetEmprunter.PointArr.GetSetY)
+                        && ((TabTrajet[lignes, colonnes].PointArr.GetSetX == TrajetEmprunter.PointArr.GetSetX
+                        && TabTrajet[lignes, colonnes].PointArr.GetSetY == TrajetEmprunter.PointArr.GetSetY) ||
+                        (TabTrajet[lignes, colonnes].PointDep.GetSetX == TrajetEmprunter.PointArr.GetSetX
+                        && TabTrajet[lignes, colonnes].PointDep.GetSetY == TrajetEmprunter.PointArr.GetSetY)))
                         {
                             TabTrajet[lignes, colonnes] = null;
                         }
