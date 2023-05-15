@@ -45,8 +45,6 @@ namespace Algo
             }
         }
 
-
-        //A revoir
         public void AfficheMapEtTrajet(Trajet Trajet)
         {
             bool ecrit = false;
@@ -59,7 +57,7 @@ namespace Algo
                 {
                     foreach (Point p in Trajet.ListePointsParcourue)
                     {
-                        if (p.GetSetX/*-1*/ == ligne && p.GetSetY/*-1*/ == colonne)
+                        if (p.GetSetX == ligne && p.GetSetY == colonne)
                         {
                             bool DejatEcrit = false;
                             foreach(Point p2 in PointDejaEcrit)

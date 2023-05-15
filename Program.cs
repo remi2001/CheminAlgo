@@ -205,9 +205,8 @@ namespace Algo
                 if (nombrePointImportantsAtteint == nombrePointImportantAAteindre)
                     Continuer = false;
 
-                //Supression des trajet dont le point d'arrivé et égale au point d'arrivén du trajet que l'on a choisi
+                //Supression des trajet dont le point d'arrivé et égale au point d'arrivé du trajet que l'on a choisi
                 //Ceci permet de ne pas repasser deux fois par le meme point
-                
                 for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
                 {
                     for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
