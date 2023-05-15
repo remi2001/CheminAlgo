@@ -44,7 +44,7 @@ namespace Algo
                 }
             }
 
-            //Cacul des trajets entre point de départ et autre points
+            //Cacul des trajets entre le point de départ et tous les autres points
             Trajet[] TabTrajetEntreDepartPoint = new Trajet[PointsImportants.Count];
             for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
             {
@@ -154,7 +154,7 @@ namespace Algo
                 ScorePotentiel = null;
 
                 
-                //Choix du trajet en fonction du trajet qui rapporte le plus de score
+                //Choix du trajet en fonction du trajet qui rapporte le plus de score entre tous les points
                 for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
                 {
                     for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
@@ -201,16 +201,17 @@ namespace Algo
                 }
 
                 //Si on a atteint tous les points importants l'on peut s'arreter la
-                //Sinon il faut parcou les autres points importants
+                //Sinon il faut parcourir les autres points importants
                 if (nombrePointImportantsAtteint == nombrePointImportantAAteindre)
                     Continuer = false;
 
-                //Supression des trajet dont le point d'arrivé et égale au point d'arrivé du trajet que l'on a choisi
+                //Supression des trajet dont le point d'arrivé et égale au point d'arrivé  du trajet que l'on a choisi
                 //Ceci permet de ne pas repasser deux fois par le meme point
                 for (int lignes = 0; lignes < PointsImportants.Count; lignes++)
                 {
                     for (int colonnes = 0; colonnes < PointsImportants.Count; colonnes++)
                     {
+                        //Point de départ pas vérifier car égale au point de départ du tous début
                         if (TabTrajet[lignes, colonnes] != null && TrajetEmprunter != null
                         && TabTrajet[lignes, colonnes].PointArr.GetSetX == TrajetEmprunter.PointArr.GetSetX
                         && TabTrajet[lignes, colonnes].PointArr.GetSetY == TrajetEmprunter.PointArr.GetSetY)

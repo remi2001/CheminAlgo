@@ -29,25 +29,9 @@ namespace Algo
             }
         }
 
-        public void AfficheMap()
-        {
-            for(int ligne=0; ligne < 20; ligne++)
-            {
-                Console.Write("|");
-                for (int colonne = 0; colonne < 20; colonne++)
-                {
-                    if(TabMap[ligne, colonne]==(-1))
-                        Console.Write(TabMap[ligne, colonne] + "|");
-                    else
-                        Console.Write(TabMap[ligne, colonne] + " |");
-                }
-                Console.WriteLine();
-            }
-        }
-
         public void AfficheMapEtTrajet(Trajet Trajet)
         {
-            bool ecrit = false;
+            bool PointEcritEnCouleur = false;
             List<Point> PointDejaEcrit = new List<Point>();
             
             for (int ligne = 0; ligne < 20; ligne++)
@@ -73,7 +57,6 @@ namespace Algo
                                     if (p.GetUtile == 1)
                                     {
                                         Console.BackgroundColor = ConsoleColor.Red;
-                                        Console.ForegroundColor = ConsoleColor.Yellow;
                                         Console.Write(TabMap[ligne, colonne]);
                                     }
                                     else
@@ -91,7 +74,6 @@ namespace Algo
                                     if (p.GetUtile == 1)
                                     {
                                         Console.BackgroundColor = ConsoleColor.Red;
-                                        Console.ForegroundColor = ConsoleColor.Yellow;
                                         Console.Write(TabMap[ligne, colonne]);
                                     }
                                     else
@@ -104,25 +86,19 @@ namespace Algo
                                     Console.ForegroundColor = ConsoleColor.White;
                                     Console.Write(" |");
                                 }
-                                ecrit = true;
+                                PointEcritEnCouleur = true;
                                 PointDejaEcrit.Add(p);
                             }
                         }
                     }
-                    if (ecrit == false)
+                    if (PointEcritEnCouleur == false)
                     {
                         if (TabMap[ligne, colonne] == (-1))
-                        {
-                            Console.BackgroundColor = ConsoleColor.Black;
                             Console.Write(TabMap[ligne, colonne] + "|");
-                        }
                         else
-                        {
-                            Console.BackgroundColor = ConsoleColor.Black;
                             Console.Write(TabMap[ligne, colonne] + " |");
-                        }
                     }
-                    ecrit = false;
+                    PointEcritEnCouleur = false;
                 }
                 Console.WriteLine();
             }
@@ -132,6 +108,4 @@ namespace Algo
         {
             return TabMap[x, y];
         }
-
-        public int[,] GetMap { get; set; }
     }}
