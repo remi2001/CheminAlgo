@@ -11,14 +11,14 @@ namespace CheminAlgo
     internal class Trajet
     {
         public Point PointDep, PointArr;
-        public List<Point> ListPointPracourure;
+        public List<Point> ListePointsParcourue;
         public int CoutTrajet;
 
         public Trajet()
         {
             PointDep = null;
             PointArr = null;
-            ListPointPracourure = new List<Point>();
+            ListePointsParcourue = new List<Point>();
             CoutTrajet = 0;
         }
 
@@ -29,7 +29,7 @@ namespace CheminAlgo
             Console.WriteLine("Point Arrivée : (" + this.PointArr.GetSetX + " , " + this.PointArr.GetSetY + " ) ");
             Console.WriteLine("Cout : " + this.CoutTrajet);
             
-            foreach (Point p in this.ListPointPracourure)
+            foreach (Point p in this.ListePointsParcourue)
             {
                 Console.Write("( " + p.GetSetX + " , " + p.GetSetY + " ) - ");
             }

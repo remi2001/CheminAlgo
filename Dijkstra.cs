@@ -68,7 +68,7 @@ namespace CheminAlgo
                         if (Voisin.SetDistance > PointActuel.SetDistance + map.ValeurPoint(Voisin.GetSetX, Voisin.GetSetY))
                         {
                             Voisin.SetDistance = PointActuel.SetDistance + map.ValeurPoint(Voisin.GetSetX, Voisin.GetSetY);
-                            Voisin.SetParent = PointActuel;
+                            Voisin.GetSetParent = PointActuel;
 
                             //Si le voisin n'est pas déjà dans la file d'attente //Pour éviter d'avoir les voisins trouvé, toujours pas 
                             //traité mais qui attendent. Sa fait une sorte de boucle infini
@@ -209,14 +209,14 @@ namespace CheminAlgo
         {
             string Chemin = "";
 
-            while (Point.SetParent != null)
+            while (Point.GetSetParent != null)
             {
                 Chemin = "(" + Point.GetSetX + ";" + Point.GetSetY + ")" + Chemin;
-                Point = Point.SetParent;
-                Trajet.ListPointPracourure.Add(Point);
+                Point = Point.GetSetParent;
+                Trajet.ListePointsParcourue.Add(Point);
             }
             Chemin = "(" + Point.GetSetX + ";" + Point.GetSetY + ")" + Chemin;
-            Trajet.ListPointPracourure.Add(Point);
+            Trajet.ListePointsParcourue.Add(Point);
 
             return Chemin;
         }

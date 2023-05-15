@@ -43,11 +43,11 @@ namespace Algo
         public int SetDistance { get; set; }
         public int GetSetX { get { return x; } set { this.x = value; } }
         public int GetSetY { get { return y; } set { this.y = value; } }
-        public Point? SetParent { get; set; }
+        public Point? GetSetParent { get; set; }
 
-        public int GetSetUtile { get { return utile; } }
+        public int GetUtile { get { return utile; } }
 
-        public int GetSetValeur { get { return valeur; } }
+        public int GetValeur { get { return valeur; } }
 
 
     }

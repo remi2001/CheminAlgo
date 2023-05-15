@@ -45,34 +45,70 @@ namespace Algo
             }
         }
 
+
+        //A revoir
         public void AfficheMapEtTrajet(Trajet Trajet)
         {
             bool ecrit = false;
+            List<Point> PointDejaEcrit = new List<Point>();
             
             for (int ligne = 0; ligne < 20; ligne++)
             {
                 Console.Write("|");
                 for (int colonne = 0; colonne < 20; colonne++)
                 {
-                    foreach (Point p in Trajet.ListPointPracourure)
+                    foreach (Point p in Trajet.ListePointsParcourue)
                     {
-                        if (p.GetSetX == ligne && p.GetSetY == colonne)
+                        if (p.GetSetX/*-1*/ == ligne && p.GetSetY/*-1*/ == colonne)
                         {
-                            if (TabMap[ligne, colonne] == (-1))
+                            bool DejatEcrit = false;
+                            foreach(Point p2 in PointDejaEcrit)
                             {
-                                Console.BackgroundColor = ConsoleColor.Red;
-                                Console.Write(TabMap[ligne, colonne]);
-                                Console.BackgroundColor = ConsoleColor.Black;
-                                Console.Write("|");
+                                if (p.GetSetX == p2.GetSetX && p.GetSetY == p2.GetSetY)
+                                    DejatEcrit = true;
                             }
-                            else
+
+                            if (DejatEcrit == false)
                             {
-                                Console.BackgroundColor = ConsoleColor.Red;
-                                Console.Write(TabMap[ligne, colonne]);
-                                Console.BackgroundColor = ConsoleColor.Black;
-                                Console.Write(" |");
+                                if (TabMap[ligne, colonne] == (-1))
+                                {
+                                    if (p.GetUtile == 1)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Red;
+                                        Console.ForegroundColor = ConsoleColor.Yellow;
+                                        Console.Write(TabMap[ligne, colonne]);
+                                    }
+                                    else
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Blue;
+                                        Console.ForegroundColor = ConsoleColor.Black;
+                                        Console.Write(TabMap[ligne, colonne]);
+                                    }
+                                    Console.BackgroundColor = ConsoleColor.Black;
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                    Console.Write("|");
+                                }
+                                else
+                                {
+                                    if (p.GetUtile == 1)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Red;
+                                        Console.ForegroundColor = ConsoleColor.Yellow;
+                                        Console.Write(TabMap[ligne, colonne]);
+                                    }
+                                    else
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Blue;
+                                        Console.ForegroundColor = ConsoleColor.Black;
+                                        Console.Write(TabMap[ligne, colonne]);
+                                    }
+                                    Console.BackgroundColor = ConsoleColor.Black;
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                    Console.Write(" |");
+                                }
+                                ecrit = true;
+                                PointDejaEcrit.Add(p);
                             }
-                            ecrit = true;
                         }
                     }
                     if (ecrit == false)
