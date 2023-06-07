@@ -8,8 +8,11 @@ namespace Algo
 {
     internal class Point
     {
+        #region Attributs de Points
         private int x, y, valeur, utile;
+        #endregion
 
+        #region Constructeurs de Points
         public Point(int CoodX, int CoodY)
         {
             this.x = CoodX;
@@ -24,7 +27,9 @@ namespace Algo
             this.valeur = valeur;
             this.utile = utile;
         }
+        #endregion
 
+        #region Methodes de Points
         public int SetDistance { get; set; }
         public int GetSetX { get { return x; } set { this.x = value; } }
         public int GetSetY { get { return y; } set { this.y = value; } }
@@ -34,6 +39,6 @@ namespace Algo
 
         public int GetValeur { get { return valeur; } }
 
-
+        #endregion
     }
 }

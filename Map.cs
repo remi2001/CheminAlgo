@@ -9,7 +9,11 @@ namespace Algo
 {
     internal class Map
     {
+        #region Attributs de Map
         private int[,] TabMap = new int[20, 20];
+        #endregion
+
+        #region Constructeur de Map
         public Map()
         {
             int ligne = 0;
@@ -28,7 +32,9 @@ namespace Algo
                 ligne++;
             }
         }
+        #endregion
 
+        #region Methodes de Map
         public void AfficheMapEtTrajet(Trajet Trajet)
         {
             bool PointEcritEnCouleur = false;
@@ -108,4 +114,6 @@ namespace Algo
         {
             return TabMap[x, y];
         }
-    }}
+        #endregion
+    }
+}

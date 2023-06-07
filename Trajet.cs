@@ -10,10 +10,13 @@ namespace CheminAlgo
 {
     internal class Trajet
     {
+        #region Attributs de Trajet
         public Point PointDep, PointArr;
         public List<Point> ListePointsParcourue;
         public int CoutTrajet;
+        #endregion
 
+        #region Constructeur de Trajet
         public Trajet()
         {
             PointDep = null;
@@ -21,7 +24,9 @@ namespace CheminAlgo
             ListePointsParcourue = new List<Point>();
             CoutTrajet = 0;
         }
+        #endregion
 
+        #region Methodes de Trajet
         public void AfficheTrajet()
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
@@ -35,5 +40,6 @@ namespace CheminAlgo
             }
             Console.WriteLine("");
         }
+        #endregion
     }
 }
